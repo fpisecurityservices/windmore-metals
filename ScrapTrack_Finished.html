@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windmore Metals</title>
+<style>
+:root{--sb:#16231a;--sbh:rgba(255,255,255,.08);--sba:rgba(255,255,255,.14);--sbt:rgba(255,255,255,.65);--sbb:rgba(255,255,255,.08);--pg:#f5f3ef;--cd:#fff;--br:#e8e4db;--br2:#d4cfc5;--tx:#1a1a1a;--tx2:#6b7280;--tx3:#9ca3af;--ac:#c8861a;--acb:#fdf3e0;--gn:#1f6b35;--gnb:#e8f5ec;--rd:#b91c1c;--rdb:#fef2f2;--bl:#1d4ed8;--blb:#eff6ff;--r:8px;--rlg:12px;--sw:220px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--pg);color:var(--tx);min-height:100vh;display:flex;font-size:14px}
+#sb{width:var(--sw);background:var(--sb);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .2s}
+.sb-logo{padding:18px 20px 14px;border-bottom:1px solid var(--sbb)}
+.sb-name{color:#fff;font-size:16px;font-weight:700}
+.sb-sub{color:var(--sbt);font-size:11px;margin-top:2px}
+.sb-nav{flex:1;padding:8px 10px;overflow-y:auto}
+.sb-sec{color:rgba(255,255,255,.3);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 12px 5px}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:var(--r);color:var(--sbt);cursor:pointer;font-size:13px;margin-bottom:1px;transition:all .12s;user-select:none}
+.sb-item:hover{background:var(--sbh);color:#fff}
+.sb-item.on{background:var(--sba);color:#fff}
+.sb-item i{font-size:17px;flex-shrink:0}
+.sb-foot{padding:10px;border-top:1px solid var(--sbb)}
+.sb-keybtn{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--r);color:var(--sbt);cursor:pointer;font-size:12px;width:100%;background:none;border:none;font-family:inherit;transition:all .12s}
+.sb-keybtn:hover{background:var(--sbh);color:#fff}
+#main{margin-left:var(--sw);flex:1;display:flex;flex-direction:column;min-height:100vh}
+#topbar{height:54px;background:var(--cd);border-bottom:1px solid var(--br);display:flex;align-items:center;padding:0 24px;gap:10px;position:sticky;top:0;z-index:50;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.tb-title{font-size:15px;font-weight:700;flex:1}
+#content{padding:24px}
+.card{background:var(--cd);border-radius:var(--rlg);border:1px solid var(--br)}
+.card-hdr{padding:14px 20px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.card-title{font-size:14px;font-weight:600}
+.card-body{padding:20px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px;margin-bottom:20px}
+.mc{background:var(--cd);border-radius:var(--r);border:1px solid var(--br);padding:14px 16px}
+.mc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:5px}
+.mc-val{font-size:22px;font-weight:700}
+.mc-sub{font-size:11px;color:var(--tx2);margin-top:3px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:9px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);border-bottom:1px solid var(--br);white-space:nowrap;cursor:pointer;user-select:none;transition:color .12s}
+th:hover{color:var(--tx)}
+th.asc::after{content:' ▲';font-size:9px}
+th.desc::after{content:' ▼';font-size:9px}
+td{padding:11px 14px;border-bottom:1px solid var(--br);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#faf9f6}
+.tstats{display:flex;gap:20px;padding:9px 14px;background:#faf9f6;border-top:1px solid var(--br);font-size:12px;color:var(--tx2);flex-wrap:wrap}
+.tstats strong{color:var(--tx)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 15px;border-radius:var(--r);font-size:13px;font-weight:500;cursor:pointer;border:1px solid transparent;transition:all .12s;font-family:inherit}
+.btn-p{background:var(--ac);color:#fff;border-color:var(--ac)}.btn-p:hover{filter:brightness(.92)}
+.btn-g{background:none;border-color:var(--br);color:var(--tx)}.btn-g:hover{background:var(--pg)}
+.btn-d{background:var(--rdb);color:var(--rd)}.btn-d:hover{background:#fecaca}
+.btn-sm{padding:5px 11px;font-size:12px}
+.bico{padding:6px;border-radius:var(--r);background:none;border:none;cursor:pointer;color:var(--tx2);transition:all .12s;font-size:16px;display:inline-flex;align-items:center}
+.bico:hover{background:var(--pg);color:var(--tx)}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap}
+.bb{background:var(--blb);color:var(--bl)}.ba{background:var(--acb);color:var(--ac)}.bg{background:var(--gnb);color:var(--gn)}.bgr{background:#f3f4f6;color:#6b7280}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2)}
+input,select,textarea{padding:8px 11px;border:1px solid var(--br);border-radius:var(--r);font-size:13px;color:var(--tx);background:#fff;width:100%;font-family:inherit;transition:border-color .12s}
+input:focus,select:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px rgba(200,134,26,.1)}
+.fpanel{background:#fffdf8;border:1px solid #f0e8d0;border-radius:var(--rlg);padding:20px;margin-bottom:18px}
+.fpanel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.fpanel-title{font-size:14px;font-weight:700}
+.factions{display:flex;gap:8px;margin-top:16px}
+.calc-ok{padding:8px 11px;background:var(--gnb);border:1px solid #86efac;border-radius:var(--r);font-size:14px;font-weight:700;color:var(--gn)}
+.calc-off{padding:8px 11px;background:var(--pg);border:1px solid var(--br);border-radius:var(--r);font-size:13px;color:var(--tx2)}
+.sw{position:relative}.sw input{padding-left:34px}.sw i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--tx3);font-size:16px;pointer-events:none}
+#toasts{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:9px;padding:11px 16px;background:#1a1a1a;color:#fff;border-radius:var(--r);font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,.18);animation:ti .18s ease;min-width:200px;pointer-events:auto}
+.tok{background:var(--gn)}.terr{background:var(--rd)}
+@keyframes ti{from{transform:translateX(16px);opacity:0}to{transform:none;opacity:1}}
+#mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;align-items:center;justify-content:center}
+#mbg.open{display:flex}
+.modal{background:var(--cd);border-radius:var(--rlg);width:440px;max-width:90vw;box-shadow:0 8px 32px rgba(0,0,0,.14)}
+.mhdr{padding:20px 24px 0;display:flex;align-items:center;justify-content:space-between}
+.mtitle{font-size:15px;font-weight:700}
+.mbody{padding:16px 24px 24px}
+.cpills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.cpill{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--br);background:none;color:var(--tx2);transition:all .12s;font-family:inherit}
+.pal{background:var(--blb);color:var(--bl);border-color:var(--bl)}.pcu{background:var(--acb);color:var(--ac);border-color:var(--ac)}.pbr{background:var(--gnb);color:var(--gn);border-color:var(--gn)}.pst{background:#f3f4f6;color:#374151;border-color:#9ca3af}
+.mbadge{display:inline-flex;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700}
+.spin{width:14px;height:14px;border:2px solid var(--br);border-top-color:var(--ac);border-radius:50%;animation:sp .6s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.act-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--br)}
+.act-item:last-child{border-bottom:none}
+.aico{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.abuy{background:var(--acb);color:var(--ac)}.asell{background:var(--gnb);color:var(--gn)}
+.sc{background:var(--cd);border:1px solid var(--br);border-radius:var(--rlg);padding:16px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;transition:border-color .12s,box-shadow .12s;margin-bottom:10px}
+.sc:hover{border-color:var(--br2);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.sr{color:var(--ac);font-size:12px;font-weight:600}
+.smeta{font-size:12px;color:var(--tx2);margin-top:5px;display:flex;flex-wrap:wrap;gap:10px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.cc{background:var(--cd);border:1px solid var(--br);border-radius:var(--rlg);padding:16px;transition:border-color .12s,box-shadow .12s}
+.cc:hover{border-color:var(--br2);box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.ticon{width:36px;height:36px;background:var(--blb);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.stabs{display:flex;gap:2px;margin-bottom:16px;border-bottom:1px solid var(--br)}
+.stab{padding:8px 14px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;color:var(--tx2);transition:all .12s;margin-bottom:-1px;user-select:none}
+.stab.on{color:var(--tx);border-bottom-color:var(--ac);font-weight:600}
+.stab:hover:not(.on){color:var(--tx)}
+.empty{text-align:center;padding:52px 24px}
+.empty i{font-size:40px;color:var(--tx3);display:block;margin-bottom:10px}
+.empty-t{font-size:14px;font-weight:600;color:var(--tx2)}
+.empty-s{font-size:13px;color:var(--tx3);margin-top:4px}
+#hamburger{display:none;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--br);border-radius:var(--r);background:none;cursor:pointer}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99}
+.sup-search-bar{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.sup-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.sup-filter{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--br);background:none;color:var(--tx2);transition:all .12s;font-family:inherit}
+.sup-filter.on{background:var(--sb);color:#fff;border-color:var(--sb)}
+.lead-card{background:var(--cd);border:1px solid var(--br);border-radius:var(--rlg);overflow:hidden;transition:border-color .15s,box-shadow .15s;margin-bottom:10px;display:flex}
+.lead-card:hover{border-color:var(--br2);box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.lead-accent{width:4px;flex-shrink:0;background:var(--ac)}
+.lead-accent.added{background:var(--gn)}
+.lead-body{flex:1;padding:14px 16px}
+.lead-actions{padding:14px 16px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;justify-content:center;flex-shrink:0;border-left:1px solid var(--br)}
+.lead-name{font-size:14px;font-weight:700;margin-bottom:3px}
+.lead-meta{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;color:var(--tx2);margin-top:5px}
+.lead-note{font-size:12px;font-style:italic;color:var(--tx3);margin-top:6px;line-height:1.5}
+.tip-card2{background:var(--cd);border:1px solid var(--br);border-radius:var(--rlg);padding:16px 18px;display:flex;gap:14px;transition:border-color .12s,box-shadow .12s}
+.tip-card2:hover{border-color:var(--br2);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.tip-icon2{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--blb)}
+.rpt-period-bar{display:flex;gap:6px;margin-bottom:20px}
+.rpt-period-btn{padding:6px 16px;border-radius:var(--r);font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--br);background:none;color:var(--tx2);transition:all .12s;font-family:inherit}
+.rpt-period-btn.on{background:var(--sb);color:#fff;border-color:var(--sb)}
+.rpt-section{margin-bottom:24px}
+.rpt-section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:10px}
+.rpt-bar-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--br);font-size:13px}
+.rpt-bar-row:last-child{border-bottom:none}
+.rpt-bar-label{width:180px;flex-shrink:0;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rpt-bar-track{flex:1;height:8px;background:#f0ede6;border-radius:4px;overflow:hidden}
+.rpt-bar-fill{height:100%;border-radius:4px;transition:width .4s}
+.rpt-bar-val{width:70px;text-align:right;font-weight:600;font-size:12px;flex-shrink:0}
+.rpt-bar-sub{width:60px;text-align:right;font-size:11px;color:var(--tx2);flex-shrink:0}
+@media(max-width:768px){#sb{transform:translateX(-100%)}#sb.open{transform:none}#main{margin-left:0}#hamburger{display:flex}.mgrid{grid-template-columns:1fr 1fr}#content{padding:16px}.fgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="overlay" id="ov" onclick="closeSb()"></div>
+<aside id="sb">
+  <div class="sb-logo"><div class="sb-name">Windmore Metals</div><div class="sb-sub">Rim & metal recycling</div></div>
+  <nav class="sb-nav">
+    <div class="sb-sec">Overview</div>
+    <div class="sb-item" id="n-dashboard" onclick="go('dashboard')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 4h5v5H4V4zm11 0h5v5h-5V4zM4 15h5v5H4v-5zm11 0h5v5h-5v-5z"/></svg>Dashboard</div>
+    <div class="sb-sec">Market</div>
+    <div class="sb-item" id="n-prices" onclick="go('prices')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M3 20h18M5 20V12m4 8V8m4 12V5m4 15v-4"/></svg>Metal Prices</div>
+    <div class="sb-item" id="n-suppliers" onclick="go('suppliers')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 1c0 4.418-6 10-6 10S6 16.418 6 12a6 6 0 1 1 12 0z"/></svg>Find Suppliers</div>
+    <div class="sb-sec">Business</div>
+    <div class="sb-item" id="n-purchases" onclick="go('purchases')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 4h1.5L8 15h9l2.5-8H7M8 15l-1.5-1.5M10 19a1 1 0 1 0 2 0 1 1 0 0 0-2 0m7 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/></svg>Purchases</div>
+    <div class="sb-item" id="n-sales" onclick="go('sales')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M3 17l6-6 4 4 8-8M14 7h6v6"/></svg>Sales</div>
+    <div class="sb-sec">Contacts</div>
+    <div class="sb-item" id="n-sources" onclick="go('sources')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm8 4a3 3 0 0 1 3 3v2M15 7a4 4 0 0 1 0 7.75"/></svg>My Sources</div>
+    <div class="sb-item" id="n-buyers" onclick="go('buyers')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5M10 7h.01M14 7h.01M10 11h.01M14 11h.01"/></svg>Buyers</div>
+    <div class="sb-sec">Operations</div>
+    <div class="sb-item" id="n-inventory" onclick="go('inventory')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg>Inventory</div>
+    <div class="sb-sec">Analytics</div>
+    <div class="sb-item" id="n-reports" onclick="go('reports')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 1 1 4 0 2 2 0 0 1-4 0m0 9h6M9 16h4"/></svg>Reports</div>
+  </nav>
+  <div class="sb-foot">
+    <button class="sb-keybtn" onclick="openApiModal()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg><span id="ks">Set API Key</span></button>
+    <button class="sb-keybtn" onclick="openDataModal()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 4v16h16M8 12h8M8 16h5M8 8h10"/></svg><span>Data Tools</span></button>
+  </div>
+</aside>
+<main id="main">
+  <header id="topbar">
+    <button id="hamburger" onclick="toggleSb()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div class="tb-title" id="tbt">Dashboard</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-g btn-sm" id="exp-btn" style="display:none" onclick="exportCSV()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg> Export CSV</button>
+      <button class="btn btn-p btn-sm" id="add-btn" style="display:none" onclick="toggleForm()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M12 5v14M5 12h14"/></svg> <span id="add-lbl">Add</span></button>
+    </div>
+  </header>
+  <div id="content"></div>
+</main>
+<div id="toasts"></div>
+<div id="mbg">
+  <div class="modal">
+    <div class="mhdr"><div class="mtitle" id="mtitle"></div><button class="bico" onclick="closeMod()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+    <div class="mbody" id="mbody"></div>
+  </div>
+</div>
+<script>
+// ── DATA ──────────────────────────────────────────────────────
+const BP={
+  aluminum:[
+    {name:"Clean Auto Wheels (Alloy 356)",lo:1.00,hi:1.30,avg:1.15,tip:"Remove lead weights, valve stems & tires. Top dollar grade."},
+    {name:"Dirty / Irony Aluminum Wheels",lo:0.75,hi:0.95,avg:0.85,tip:"Has steel weights or minor contamination attached."},
+    {name:"Chrome / Clad Wheels (Plastic Face)",lo:0.50,hi:0.70,avg:0.60,tip:"Plastic face drops value — pry it off if you can."},
+    {name:"Semi / Truck Wheels (Alloy 6061)",lo:0.65,hi:0.83,avg:0.74,tip:"Large commercial rims. Great volume play with fleet shops."},
+    {name:"Cast Aluminum",lo:0.50,hi:0.75,avg:0.62,tip:"Engine blocks, cast grills, patio furniture."},
+    {name:"6063 Extrusion (Clean)",lo:1.10,hi:1.81,avg:1.46,tip:"Window frames, door handles, structural tubing. High value."},
+    {name:"Aluminum Sheet (Clean)",lo:0.60,hi:0.85,avg:0.73,tip:"Flat stock, siding, gutters. Keep dry and unpainted."},
+    {name:"Aluminum Cans (UBC)",lo:0.70,hi:0.93,avg:0.82,tip:"Need high volume. Good add-on to rim hauls."},
+    {name:"Aluminum Turnings / Shavings",lo:0.20,hi:0.43,avg:0.32,tip:"Machine shop waste. Often oily — deduct for contamination."},
+    {name:"Mixed / Dirty Aluminum",lo:0.35,hi:0.55,avg:0.45,tip:"Sort by grade — a few minutes of sorting = much better rate."},
+  ],
+  copper:[
+    {name:"Bare Bright Copper Wire",lo:4.10,hi:4.50,avg:4.30,tip:"Stripped, uncoated, no solder. Top of the market."},
+    {name:"#1 Copper (clean pipe / bar)",lo:4.50,hi:4.80,avg:4.69,tip:"Bare, uncoated pipe or bus bar. No fittings."},
+    {name:"#2 Copper (light oxidation)",lo:4.30,hi:4.60,avg:4.53,tip:"Burnt wire or lightly coated OK."},
+    {name:"Insulated Copper Wire",lo:1.20,hi:2.50,avg:1.85,tip:"Strip for bare bright rate — sometimes 2x payout."},
+    {name:"Copper-Aluminum Radiator (Clean)",lo:1.40,hi:1.80,avg:1.60,tip:"No plastic, iron, or coolant. Common in older cars."},
+    {name:"Copper-Brass Radiator",lo:1.10,hi:1.50,avg:1.30,tip:"Drain coolant first. Common in domestic vehicles."},
+  ],
+  brass:[
+    {name:"Yellow Brass",lo:2.50,hi:2.90,avg:2.76,tip:"Valves, fittings, mixed brass castings. Very common."},
+    {name:"Red Brass / Bronze",lo:2.60,hi:2.95,avg:2.76,tip:"Higher copper content = more valuable. Test with a magnet."},
+    {name:"Plumbing Brass",lo:1.25,hi:1.80,avg:1.50,tip:"Faucets and fixtures. Chrome plating hurts price."},
+    {name:"Brass Shells (ammo casings)",lo:1.50,hi:2.20,avg:1.85,tip:"No live rounds — verify and check local regs."},
+  ],
+  steel:[
+    {name:"Steel Rims (auto)",lo:0.08,hi:0.12,avg:0.10,tip:"Razor-thin margin. Only buy near free."},
+    {name:"Heavy Steel (#1 Prepared)",lo:0.10,hi:0.14,avg:0.12,tip:"1/4\" gauge or thicker, under 5ft. Best ferrous grade."},
+    {name:"#2 Steel / Mixed Ferrous",lo:0.07,hi:0.10,avg:0.09,tip:"Thinner gauge or mixed loads. Volume only."},
+    {name:"Cast Iron (rotors, drums)",lo:0.08,hi:0.13,avg:0.11,tip:"Remove hubs. Brake rotors are most common."},
+    {name:"Stainless Steel (300 series)",lo:0.35,hi:0.42,avg:0.38,tip:"Non-magnetic — test with magnet. Far more valuable than steel."},
+    {name:"Lead (wheel weights)",lo:0.33,hi:0.42,avg:0.37,tip:"Always save lead weights pulled from rims — they add up."},
+  ]
+};
+const DFW=[
+  {name:"CFC Recycling",rating:4.9,reviews:223,city:"Dallas",phone:"214-584-6399",addr:"2716 Dowdy Ferry Rd, Dallas TX 75217",hours:"Mon-Fri 9-6, Sat 9-4",note:"Cash-for-junk-cars op — constant vehicle flow means steady rim supply.",url:"https://www.cfcrecycling.com/"},
+  {name:"All Discount Auto Salvage",rating:4.5,reviews:915,city:"Grand Prairie",phone:"972-263-3388",addr:"3965 E Main St, Grand Prairie TX 75050",hours:"Mon-Fri 9-5, Sat 9-4",note:"Large yard, great reviews. Call ahead — they'll tell you what's on the lot.",url:"http://www.alldiscountautosalvage.com/"},
+  {name:"Garland Auto Recyclers",rating:4.2,reviews:355,city:"Dallas",phone:"214-375-6002",addr:"4211 S Great Trinity Forest Way, Dallas TX 75241",hours:"Mon-Sat 9-6, Sun 9-5",note:"One of few open Sundays. Ask for Chris.",url:"http://garlandautorecyclers.com/"},
+  {name:"Lane Recyclers",rating:4.3,reviews:150,city:"Dallas",phone:"469-248-0783",addr:"11521 CF Hawn Fwy, Dallas TX 75253",hours:"Mon-Fri 8-5, Sat 9-3",note:"Good service — will negotiate on bulk rim loads.",url:"http://lanerecyclers.com/"},
+  {name:"AAA Crain's Auto Salvage",rating:4.1,reviews:1771,city:"Fort Worth",phone:"469-274-5951",addr:"3300 Van Horn Ave, Fort Worth TX 76111",hours:"Mon-Fri 8-6, Sat 9-4",note:"Biggest yard in FTW. High vehicle turnover = lots of rims.",url:"https://crainsautosalvage.com/"},
+  {name:"American Auto Salvage",rating:4.0,reviews:297,city:"Fort Worth",phone:"817-335-3328",addr:"2567 Decatur Ave, Fort Worth TX 76106",hours:"Mon-Fri 8-5",note:"Ask specifically about bulk rim purchases.",url:"https://americanautosalvage.com/"},
+  {name:"Apache Iron Metal & Auto Salvage",rating:3.9,reviews:419,city:"Fort Worth",phone:"817-478-5401",addr:"1001 W Kennedale Pkwy, Fort Worth TX 76140",hours:"Mon-Fri 8:30-5, Sat 8:30-4",note:"Has a dedicated scrap metal side. Call to confirm they're buying.",url:null},
+  {name:"Affordable Auto Salvage",rating:3.9,reviews:248,city:"Grand Prairie",phone:"972-263-6666",addr:"4111 E Jefferson St, Grand Prairie TX 75051",hours:"Mon-Sat 8-5:30",note:"Right next to All Discount — combine into one run.",url:null},
+];
+const TIPS=[
+  {icon:"ti-tool",title:"Tire shops & quick lubes",body:"Offer free scheduled pickup for first rights to pull-off rims. Many already pay to dispose of them — you eliminate that cost."},
+  {icon:"ti-car",title:"Independent auto repair shops",body:"Build 3-5 shop relationships per area. Offer weekly pickups. Mechanics hate dealing with rim piles and will hand them over willingly."},
+  {icon:"ti-building",title:"Fleet operators & dealerships",body:"Rental fleets and delivery companies rotate tires on fixed schedules. Get to the fleet manager directly — bypass the front desk."},
+  {icon:"ti-brand-facebook",title:"Facebook Marketplace & Craigslist",body:"Search 'rims', 'wheels', 'alloys' every morning. People post full sets for $20-40 just to clear garage space. Easy same-day flips."},
+  {icon:"ti-trophy",title:"Auto auctions (ADESA, Manheim, impound)",body:"City impound and dealer auctions sell salvage lots. Strip rims before reselling the rest, stacking profit on both ends."},
+  {icon:"ti-users",title:"Buy wholesale from smaller pickers",body:"Scrappers who don't want to process rim loads will take quick cash. Post in DFW scrapping Facebook groups to find them."},
+  {icon:"ti-map-pin",title:"Apartment complexes & storage auctions",body:"Abandoned vehicles show up at apartment lots regularly. Check management quarterly. Storage auctions often include random vehicle parts."},
+  {icon:"ti-phone",title:"iScrap App & DFW Facebook groups",body:"iScrap has a built-in scrapper network. DFW groups have active members posting bulk loads they don't want to process."},
+];
+const MT=["Aluminum Rims","Steel Rims","Cast Aluminum","Copper Wire","Brass","Stainless Steel","Mixed Load","Other"];
+const ST_TYPES=["Junkyard","Mechanic","Auto Shop","Auction","Dealer","Individual","Other"];
+const CAT={aluminum:"Aluminum",copper:"Copper",brass:"Brass",steel:"Steel & Others"};
+const TITLES={dashboard:"Dashboard",prices:"Metal Prices",suppliers:"Find Suppliers",purchases:"Purchases",sales:"Sales",sources:"My Sources",buyers:"Buyers",inventory:"Inventory",reports:"Reports"};
+
+// ── STATE ─────────────────────────────────────────────────────
+const S={
+  tab:"dashboard",nid:100,
+  purchases:[
+    {id:1,date:"2026-04-18",src:"South Dallas Junkyard",type:"Aluminum Rims",qty:24,lbs:336,paid:120.00,notes:"Mixed 16/17 inch"},
+    {id:2,date:"2026-04-24",src:"Carlos Mendez",type:"Aluminum Rims",qty:16,lbs:192,paid:96.00,notes:"Clean OEM 18 inch"},
+    {id:3,date:"2026-04-28",src:"Mike's Auto Repair",type:"Steel Rims",qty:30,lbs:510,paid:76.50,notes:"Mixed sizes"},
+    {id:4,date:"2026-05-01",src:"DFW Auto Auction",type:"Aluminum Rims",qty:32,lbs:416,paid:166.40,notes:"Auction lot #44"},
+    {id:5,date:"2026-05-08",src:"South Dallas Junkyard",type:"Aluminum Rims",qty:20,lbs:260,paid:104.00,notes:""},
+  ],
+  sales:[
+    {id:1,date:"2026-04-30",buyer:"Texas Aluminum Co.",type:"Aluminum Rims",lbs:336,rate:0.52,total:174.72,notes:""},
+    {id:2,date:"2026-05-06",buyer:"Metro Scrap Metals",type:"Steel Rims",lbs:510,rate:0.11,total:56.10,notes:"Mixed steel lot"},
+    {id:3,date:"2026-05-09",buyer:"Texas Aluminum Co.",type:"Aluminum Rims",lbs:192,rate:0.53,total:101.76,notes:"Good rate this week"},
+  ],
+  sources:[
+    {id:1,name:"South Dallas Junkyard",type:"Junkyard",phone:"214-555-0182",city:"Dallas, TX",notes:"Best for bulk rims, call ahead"},
+    {id:2,name:"Mike's Auto Repair",type:"Mechanic",phone:"817-555-0234",city:"Fort Worth, TX",notes:"Weekly pickups available"},
+    {id:3,name:"DFW Auto Auction",type:"Auction",phone:"972-555-0156",city:"Irving, TX",notes:"Thursdays only"},
+    {id:4,name:"Carlos Mendez",type:"Individual",phone:"214-555-0311",city:"Grand Prairie, TX",notes:"Fleet operator, OEM stock"},
+  ],
+  buyers:[
+    {id:1,name:"Texas Aluminum Co.",contact:"Robert Hill",phone:"713-555-0190",email:"rhill@texasal.com",rate:0.52,notes:"Pays weekly, prefers clean aluminum"},
+    {id:2,name:"Metro Scrap Metals",contact:"Sarah Johnson",phone:"214-555-0278",email:"sjohnson@metroscrap.com",rate:0.48,notes:"Accepts mixed loads, pays on pickup"},
+  ],
+  prices:JSON.parse(JSON.stringify(BP)),
+  prDate:null,prLoading:false,
+  mktRate:0.52,apiKey:"",
+  cat:"aluminum",bcheck:"",supTab:"leads",supQ:"",rptPeriod:"month",
+  supSearchQ:"",supResults:[],supSearching:false,supSearchDone:false,
+  form:false,sf:null,sd:"asc",q:"",
+};
+let pcb=null;
+
+// ── STORAGE ───────────────────────────────────────────────────
+function loadLS(){
+  try{const d=localStorage.getItem("st4");if(d){const p=JSON.parse(d);["purchases","sales","sources","buyers","prices","prDate","mktRate","nid"].forEach(k=>{if(p[k]!==undefined)S[k]=p[k];});} S.apiKey=localStorage.getItem("stkey")||"";}catch(e){}
+}
+function saveLS(){
+  try{localStorage.setItem("st4",JSON.stringify({purchases:S.purchases,sales:S.sales,sources:S.sources,buyers:S.buyers,prices:S.prices,prDate:S.prDate,mktRate:S.mktRate,nid:S.nid}));}catch(e){}
+}
+const uid=()=>++S.nid;
+
+// ── HELPERS ───────────────────────────────────────────────────
+const $=id=>document.getElementById(id);
+const fmtD=n=>"$"+Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+const fmtLb=n=>Number(n).toLocaleString()+" lbs";
+const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+function TH(l,f){const c=S.sf===f?S.sd:"";return`<th class="${c}" onclick="sortBy('${f}')">${l}</th>`;}
+function typeBadge(t){return`<span class="badge ${t.includes("Aluminum")?"bb":t.includes("Copper")?"ba":t.includes("Brass")?"bg":"bgr"}">${esc(t)}</span>`;}
+function srcBadge(t){return`<span class="badge ${["Junkyard","Auction","Dealer"].includes(t)?"ba":["Mechanic","Auto Shop"].includes(t)?"bb":"bgr"}">${esc(t)}</span>`;}
+
+// ── NAV ───────────────────────────────────────────────────────
+function go(tab){
+  S.tab=tab;S.form=false;S.q="";S.sf=null;
+  document.querySelectorAll(".sb-item").forEach(e=>e.classList.remove("on"));
+  const n=$("n-"+tab);if(n)n.classList.add("on");
+  $("tbt").textContent=TITLES[tab]||tab;
+  $("exp-btn").style.display=["purchases","sales","inventory"].includes(tab)?"":"none";
+  const al={purchases:"Log Purchase",sales:"Log Sale",sources:"Add Source",buyers:"Add Buyer"};
+  if(al[tab]){$("add-btn").style.display="";$("add-lbl").textContent=al[tab];}else $("add-btn").style.display="none";
+  render();closeSb();
+}
+function toggleForm(){S.form=!S.form;render();}
+function toggleSb(){$("sb").classList.toggle("open");$("ov").classList.toggle("open");}
+function closeSb(){$("sb").classList.remove("open");$("ov").classList.remove("open");}
+
+// ── TOAST ─────────────────────────────────────────────────────
+function toast(msg,type=""){
+  const d=document.createElement("div");
+  d.className="toast"+(type?" t"+type:"");
+  const _ic=type==='ok'?'M5 12l5 5L20 7':type==='err'?'M18 6L6 18M6 6l12 12':'M12 12m-9 0a9 9 0 1 0 18 0 9 9 0 0 0-18 0M12 8h.01M11 12h1v4h1';d.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px"><path d="'+_ic+'"/></svg>'+esc(msg);
+  $("toasts").appendChild(d);setTimeout(()=>d.remove(),2600);
+}
+
+// ── MODAL ─────────────────────────────────────────────────────
+function openMod(title,body){$("mtitle").textContent=title;$("mbody").innerHTML=body;$("mbg").classList.add("open");}
+function closeMod(){$("mbg").classList.remove("open");}
+function confirmDel(msg,cb){pcb=cb;openMod("Confirm delete",`<p style="font-size:13px;color:var(--tx2);margin-bottom:18px">${esc(msg)}</p><div style="display:flex;gap:8px"><button class="btn btn-d" onclick="closeMod();if(pcb)pcb()">Delete</button><button class="btn btn-g" onclick="closeMod()">Cancel</button></div>`);}
+function openApiModal(){
+  openMod("API Key Settings",`
+    <p style="font-size:13px;color:var(--tx2);margin-bottom:14px">Your Anthropic API key enables live daily price updates via web search. Stored locally on this device only.</p>
+    <div class="fg" style="margin-bottom:16px"><label class="fl">Anthropic API Key</label><input type="password" id="api-in" placeholder="sk-ant-..." value="${esc(S.apiKey)}" style="font-family:monospace"></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-p" onclick="saveKey()">Save Key</button>
+      ${S.apiKey?`<button class="btn btn-g" onclick="clearKey()">Clear</button>`:""}
+      <button class="btn btn-g" onclick="closeMod()">Cancel</button>
+    </div>
+    <p style="font-size:11px;color:var(--tx3);margin-top:12px">Without a key, prices use embedded market data (May 2026). Get your key at console.anthropic.com</p>
+  `);
+}
+function saveKey(){const v=($("api-in").value||"").trim();S.apiKey=v;localStorage.setItem("stkey",v);$("ks").textContent=v?"API Key ✓":"Set API Key";closeMod();toast(v?"API key saved":"Cleared","ok");}
+function clearKey(){S.apiKey="";localStorage.removeItem("stkey");$("ks").textContent="Set API Key";closeMod();toast("API key cleared");}
+
+function openDataModal(){
+  openMod("Data Tools",`
+    <p style="font-size:13px;color:var(--tx2);margin-bottom:14px">Back up this business data before switching devices, clearing browser storage, or handing the tool to another operator. The backup includes purchases, sales, sources, buyers, prices, and settings.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+      <button class="btn btn-p" onclick="exportBackup()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg> Export Backup</button>
+      <button class="btn btn-g" onclick="importBackupPrompt()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 9l5-5 5 5M12 4v12"/></svg> Import Backup</button>
+    </div>
+    <div style="background:var(--pg);border-radius:var(--r);padding:12px;font-size:12px;color:var(--tx2)"><strong style="color:var(--tx)">Tip:</strong> This is still a local-first tool. Nothing leaves the browser unless the user exports a file or uses API-powered search.</div>
+  `);
+}
+function exportBackup(){
+  const payload={version:5,exportedAt:new Date().toISOString(),data:{purchases:S.purchases,sales:S.sales,sources:S.sources,buyers:S.buyers,prices:S.prices,prDate:S.prDate,mktRate:S.mktRate,nid:S.nid}};
+  const a=document.createElement("a");
+  a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(payload,null,2));
+  a.download="scraptrack-backup-"+new Date().toISOString().slice(0,10)+".json";
+  a.click();toast("Backup exported","ok");
+}
+function importBackupPrompt(){
+  const inp=document.createElement("input");inp.type="file";inp.accept="application/json,.json";
+  inp.onchange=()=>{const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const p=JSON.parse(r.result);const d=p.data||p;["purchases","sales","sources","buyers","prices","prDate","mktRate","nid"].forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});saveLS();closeMod();toast("Backup imported","ok");go("dashboard");}catch(e){toast("Import failed: invalid backup file","err");}};r.readAsText(f);};inp.click();
+}
+
+
+// ── SORT / FILTER ─────────────────────────────────────────────
+function sortBy(f){S.sd=(S.sf===f&&S.sd==="asc")?"desc":"asc";S.sf=f;render();}
+function applySort(arr){
+  let out=[...arr];
+  if(S.q){const q=S.q.toLowerCase();out=out.filter(x=>Object.values(x).some(v=>(v||"").toString().toLowerCase().includes(q)));}
+  if(S.sf){out.sort((a,b)=>{let av=a[S.sf],bv=b[S.sf];if(typeof av==="string"){av=av.toLowerCase();bv=bv.toLowerCase();}return S.sd==="asc"?(av<bv?-1:av>bv?1:0):(av>bv?-1:av<bv?1:0);});}
+  else out.sort((a,b)=>b.date.localeCompare(a.date));
+  return out;
+}
+
+// ── PRICES ────────────────────────────────────────────────────
+function pricesStale(){return!S.prDate||(Date.now()-new Date(S.prDate))>20*3600*1000;}
+async function fetchPrices(){
+  if(!S.apiKey){openApiModal();return;}
+  if(S.prLoading)return;
+  S.prLoading=true;render();
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-api-key":S.apiKey,"anthropic-version":"2023-06-01"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",max_tokens:2000,
+        tools:[{type:"web_search_20250305",name:"web_search"}],
+        system:`Search for current US scrap metal prices and return ONLY valid JSON, no markdown, no backticks, no extra text:
+{"date":"YYYY-MM-DD","al":{"cw":{"lo":X,"hi":X,"avg":X},"dw":{"lo":X,"hi":X,"avg":X},"ca":{"lo":X,"hi":X,"avg":X},"ex":{"lo":X,"hi":X,"avg":X},"sh":{"lo":X,"hi":X,"avg":X},"cn":{"lo":X,"hi":X,"avg":X},"tu":{"lo":X,"hi":X,"avg":X},"mx":{"lo":X,"hi":X,"avg":X}},"cu":{"bb":{"lo":X,"hi":X,"avg":X},"n1":{"lo":X,"hi":X,"avg":X},"n2":{"lo":X,"hi":X,"avg":X},"ins":{"lo":X,"hi":X,"avg":X}},"br":{"yw":{"lo":X,"hi":X,"avg":X},"rd":{"lo":X,"hi":X,"avg":X},"pl":{"lo":X,"hi":X,"avg":X}},"st":{"sr":{"lo":X,"hi":X,"avg":X},"hs":{"lo":X,"hi":X,"avg":X},"ss":{"lo":X,"hi":X,"avg":X},"ld":{"lo":X,"hi":X,"avg":X}}}`,
+        messages:[{role:"user",content:"Search current scrap metal prices per lb USA today and return the JSON."}]
+      })
+    });
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    const data=await res.json();
+    const txt=data.content.filter(b=>b.type==="text").map(b=>b.text).join("");
+    const m=txt.match(/\{[\s\S]*\}/);
+    if(!m)throw new Error("No JSON in response");
+    const p=JSON.parse(m[0]);
+    const mg=(o,lo,hi,avg)=>({lo:(o&&o.lo)||lo,hi:(o&&o.hi)||hi,avg:(o&&o.avg)||avg});
+    const al=p.al||{},cu=p.cu||{},br=p.br||{},st=p.st||{};
+    S.prices={
+      aluminum:[
+        {...mg(al.cw,1.00,1.30,1.15),name:"Clean Auto Wheels (Alloy 356)",tip:"Remove lead weights, valve stems & tires. Top dollar grade."},
+        {...mg(al.dw,0.75,0.95,0.85),name:"Dirty / Irony Aluminum Wheels",tip:"Has steel weights or minor contamination attached."},
+        {lo:0.50,hi:0.70,avg:0.60,name:"Chrome / Clad Wheels (Plastic Face)",tip:"Plastic face drops value — pry it off if you can."},
+        {lo:0.65,hi:0.83,avg:0.74,name:"Semi / Truck Wheels (Alloy 6061)",tip:"Large commercial rims. Great volume play."},
+        {...mg(al.ca,0.50,0.75,0.62),name:"Cast Aluminum",tip:"Engine blocks, cast grills, patio furniture."},
+        {...mg(al.ex,1.10,1.81,1.46),name:"6063 Extrusion (Clean)",tip:"Window frames, structural tubing. High value."},
+        {...mg(al.sh,0.60,0.85,0.73),name:"Aluminum Sheet (Clean)",tip:"Flat stock, siding, gutters."},
+        {...mg(al.cn,0.70,0.93,0.82),name:"Aluminum Cans (UBC)",tip:"High volume needed to be worthwhile."},
+        {...mg(al.tu,0.20,0.43,0.32),name:"Aluminum Turnings",tip:"Machine shop waste — often oily."},
+        {...mg(al.mx,0.35,0.55,0.45),name:"Mixed / Dirty Aluminum",tip:"Sort by grade for a much better rate."},
+      ],
+      copper:[
+        {...mg(cu.bb,4.10,4.50,4.30),name:"Bare Bright Copper Wire",tip:"Stripped, uncoated, no solder. Top of the market."},
+        {...mg(cu.n1,4.50,4.80,4.69),name:"#1 Copper (pipe / bar)",tip:"Bare, uncoated pipe or bus bar."},
+        {...mg(cu.n2,4.30,4.60,4.53),name:"#2 Copper (light oxidation)",tip:"Burnt wire or lightly coated OK."},
+        {...mg(cu.ins,1.20,2.50,1.85),name:"Insulated Copper Wire",tip:"Strip for bare bright rate — sometimes 2x payout."},
+        {lo:1.40,hi:1.80,avg:1.60,name:"Copper-Aluminum Radiator",tip:"No plastic, iron, or coolant."},
+        {lo:1.10,hi:1.50,avg:1.30,name:"Copper-Brass Radiator",tip:"Drain coolant first."},
+      ],
+      brass:[
+        {...mg(br.yw,2.50,2.90,2.76),name:"Yellow Brass",tip:"Valves, fittings, mixed castings."},
+        {...mg(br.rd,2.60,2.95,2.76),name:"Red Brass / Bronze",tip:"Higher copper content — worth more than yellow."},
+        {...mg(br.pl,1.25,1.80,1.50),name:"Plumbing Brass",tip:"Faucets, fixtures. Chrome plating hurts price."},
+        {lo:1.50,hi:2.20,avg:1.85,name:"Brass Shells (ammo casings)",tip:"No live rounds — check local regs."},
+      ],
+      steel:[
+        {...mg(st.sr,0.08,0.12,0.10),name:"Steel Rims (auto)",tip:"Razor-thin margin. Only buy near free."},
+        {...mg(st.hs,0.10,0.14,0.12),name:"Heavy Steel (#1 Prepared)",tip:"1/4\" gauge or thicker, under 5ft."},
+        {lo:0.07,hi:0.10,avg:0.09,name:"#2 Steel / Mixed Ferrous",tip:"Thinner gauge or mixed loads."},
+        {lo:0.08,hi:0.13,avg:0.11,name:"Cast Iron (rotors, drums)",tip:"Remove hubs. Brake rotors most common."},
+        {...mg(st.ss,0.35,0.42,0.38),name:"Stainless Steel (300 series)",tip:"Non-magnetic — test with magnet. Far more valuable than steel."},
+        {...mg(st.ld,0.33,0.42,0.37),name:"Lead (wheel weights)",tip:"Save lead weights pulled from rims — they add up."},
+      ],
+    };
+    S.prDate=p.date||new Date().toISOString().slice(0,10);
+    saveLS();toast("Prices updated from live market data","ok");
+  }catch(e){console.error(e);toast("Price fetch failed: "+e.message,"err");}
+  S.prLoading=false;render();
+}
+
+// ── EXPORT ────────────────────────────────────────────────────
+function exportCSV(){
+  let rows,fn;
+  if(S.tab==="purchases"){
+    rows=[["Date","Source","Metal Type","Qty","Weight lbs","Total Paid","$/lb","Notes"],...S.purchases.map(p=>[p.date,p.src,p.type,p.qty,p.lbs,p.paid.toFixed(2),(p.paid/p.lbs).toFixed(3),p.notes||""])];
+    fn="purchases.csv";
+  }else if(S.tab==="sales"){
+    rows=[["Date","Buyer","Metal Type","Weight lbs","$/lb","Total","Notes"],...S.sales.map(s=>[s.date,s.buyer,s.type,s.lbs,s.rate.toFixed(3),s.total.toFixed(2),s.notes||""])];
+    fn="sales.csv";
+  }else{
+    const inv=getInventoryRows();
+    rows=[["Metal Type","Purchased lbs","Sold lbs","On Hand lbs","Avg Buy $/lb","Estimated Value","Open Cost","Unrealized Profit"],...inv.map(r=>[r.type,r.bought,r.sold,r.onHand,r.avgBuy.toFixed(3),r.value.toFixed(2),r.openCost.toFixed(2),r.unrealized.toFixed(2)])];
+    fn="inventory.csv";
+  }
+  const a=document.createElement("a");
+  a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(rows.map(r=>r.map(c=>`"${c}"`).join(",")).join("\n"));
+  a.download=fn;a.click();toast("CSV exported","ok");
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────
+function renderDashboard(){
+  const tc=S.purchases.reduce((s,p)=>s+p.paid,0);
+  const tr=S.sales.reduce((s,x)=>s+x.total,0);
+  const pr=tr-tc,lb=S.purchases.reduce((s,p)=>s+p.lbs,0),ls=S.sales.reduce((s,x)=>s+x.lbs,0);
+  const oh=lb-ls,ab=lb?tc/lb:0,as2=ls?tr/ls:0,mg=tr?(pr/tr)*100:0;
+  const act=[...S.purchases.map(p=>({date:p.date,t:"buy",desc:"Bought "+p.qty+" rims from "+p.src,amt:p.paid})),...S.sales.map(s=>({date:s.date,t:"sell",desc:"Sold "+fmtLb(s.lbs)+" to "+s.buyer,amt:s.total}))].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
+  const qr=Object.keys(CAT).flatMap(c=>(S.prices[c]||[]).slice(0,2).map(m=>`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span style="color:var(--tx2)">${esc(m.name.split("(")[0].trim())}</span><span style="font-weight:700">$${(m.avg||0).toFixed(2)}/lb</span></div>`)).join("");
+  return`
+<div class="mgrid">
+  <div class="mc"><div class="mc-lbl">Total Revenue</div><div class="mc-val" style="color:var(--gn)">${fmtD(tr)}</div><div class="mc-sub">${ls.toLocaleString()} lbs sold</div></div>
+  <div class="mc"><div class="mc-lbl">Total Cost</div><div class="mc-val">${fmtD(tc)}</div><div class="mc-sub">${lb.toLocaleString()} lbs bought</div></div>
+  <div class="mc"><div class="mc-lbl">Net Profit</div><div class="mc-val" style="color:${pr>=0?"var(--gn)":"var(--rd)"}">${fmtD(pr)}</div><div class="mc-sub">${mg.toFixed(1)}% margin</div></div>
+  <div class="mc"><div class="mc-lbl">Inventory</div><div class="mc-val" style="color:var(--bl)">${fmtLb(oh)}</div><div class="mc-sub">≈ ${fmtD(oh*S.mktRate)} at market</div></div>
+  <div class="mc"><div class="mc-lbl">Avg Buy</div><div class="mc-val">$${ab.toFixed(3)}</div><div class="mc-sub">per lb</div></div>
+  <div class="mc"><div class="mc-lbl">Avg Sell</div><div class="mc-val" style="color:var(--gn)">$${as2.toFixed(3)}</div><div class="mc-sub">per lb</div></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">Recent Activity</div><span style="font-size:12px;color:var(--tx2)">${S.purchases.length+S.sales.length} transactions</span></div>
+    <div style="padding:0 20px">
+      ${act.length?act.map(a=>`<div class="act-item"><div class="aico a${a.t}">${a.t==="sell"?'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M3 17l6-6 4 4 8-8M14 7h6v6"/></svg>':'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M4 4h1.5L8 15h9l2.5-8H7M10 19a1 1 0 1 0 2 0 1 1 0 0 0-2 0m7 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/></svg>'}</div><div style="flex:1"><div style="font-size:13px;font-weight:500">${esc(a.desc)}</div><div style="font-size:11px;color:var(--tx2)">${a.date}</div></div><div style="font-size:13px;font-weight:700;color:${a.t==="sell"?"var(--gn)":"var(--rd)"};">${a.t==="sell"?"+":"-"}${fmtD(a.amt)}</div></div>`).join(""):`<div class="empty"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M9 6h11M9 12h11M9 18h11M5 6v.01M5 12v.01M5 18v.01"/></svg><div class="empty-t">No activity yet</div></div>`}
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">Market Rate</div><button class="btn btn-g btn-sm" onclick="go('prices')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M3 20h18M5 20V12m4 8V8m4 12V5m4 15v-4"/></svg> All prices</button></div>
+    <div class="card-body">
+      <div style="margin-bottom:14px">
+        <div class="fl" style="margin-bottom:6px">Aluminum rim rate — update daily</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="color:var(--tx2);font-size:13px">$</span>
+          <input type="number" step="0.001" min="0" value="${S.mktRate}" onchange="S.mktRate=parseFloat(this.value)||0;saveLS()" style="width:90px">
+          <span style="color:var(--tx2);font-size:13px">/ lb</span>
+        </div>
+      </div>
+      <div style="background:var(--pg);border-radius:var(--r);padding:12px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:8px">Quick reference</div>
+        ${qr}
+      </div>
+      ${S.prDate?`<div style="font-size:11px;color:var(--tx3);margin-top:10px">Prices last updated: ${esc(S.prDate)}</div>`:""}
+    </div>
+  </div>
+</div>`;
+}
+
+// ── METAL PRICES ──────────────────────────────────────────────
+function renderPrices(){
+  const metals=S.prices[S.cat]||BP[S.cat]||[];
+  const bp=parseFloat(S.bcheck)||0;
+  function mb(avg){if(!bp)return"";const m=((avg-bp)/avg)*100;if(m>40)return`<span class="mbadge" style="background:var(--gnb);color:var(--gn)">+${m.toFixed(0)}%</span>`;if(m>15)return`<span class="mbadge" style="background:var(--acb);color:var(--ac)">+${m.toFixed(0)}%</span>`;if(m>0)return`<span class="mbadge" style="background:#fffde7;color:#a07000">+${m.toFixed(0)}% thin</span>`;return`<span class="mbadge" style="background:var(--rdb);color:var(--rd)">Below mkt</span>`;}
+  const pills=Object.keys(CAT).map(c=>{const pc={aluminum:"pal",copper:"pcu",brass:"pbr",steel:"pst"}[c];return`<button class="cpill ${S.cat===c?pc:""}" onclick="S.cat='${c}';render()">${CAT[c]}</button>`;}).join("");
+  return`
+<div class="card" style="margin-bottom:14px">
+  <div class="card-body" style="padding:14px 20px">
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between">
+      <div>
+        <div class="fl" style="margin-bottom:6px">Profit Checker — enter your buy price per lb</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="color:var(--tx2);font-size:13px">Buying at $</span>
+          <input type="number" step="0.01" min="0" placeholder="0.00" value="${S.bcheck}" oninput="S.bcheck=this.value;render()" style="width:90px">
+          <span style="color:var(--tx2);font-size:13px">/ lb</span>
+          ${bp?`<span style="font-size:12px;color:var(--tx2)">← margin shown per grade</span>`:""}
+        </div>
+      </div>
+      <div style="text-align:right">
+        ${S.prLoading?`<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tx2)"><div class="spin"></div>Fetching live prices…</div>`:`<button class="btn btn-p btn-sm" onclick="fetchPrices()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M20 11a8.1 8.1 0 0 0-15.5-2m-.5-4v4h4M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg> Refresh Prices</button><div style="font-size:11px;color:var(--tx3);margin-top:4px">${S.prDate?"Updated: "+esc(S.prDate):"Using embedded data (May 2026)"}</div>`}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cpills">${pills}</div>
+<div class="card">
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:44%">Grade / Type</th><th style="text-align:right">Low</th><th style="text-align:right">Avg</th><th style="text-align:right">High</th>${bp?`<th style="text-align:right">Margin</th>`:""}</tr></thead>
+      <tbody>${metals.map(m=>`<tr><td><div style="font-weight:600">${esc(m.name)}</div><div style="font-size:11px;color:var(--tx3);margin-top:2px">${esc(m.tip)}</div></td><td style="text-align:right;color:var(--tx2)">$${(m.lo||0).toFixed(2)}</td><td style="text-align:right;font-weight:700">$${(m.avg||0).toFixed(2)}</td><td style="text-align:right;color:var(--tx2)">$${(m.hi||0).toFixed(2)}</td>${bp?`<td style="text-align:right">${mb(m.avg||0)}</td>`:""}</tr>`).join("")}</tbody>
+    </table>
+  </div>
+</div>
+<div style="font-size:11px;color:var(--tx3);margin-top:8px">${S.apiKey?`Click "Refresh Prices" to pull live data via Anthropic web search. Prices auto-refresh every 20 hours.`:`Set your API key (bottom of sidebar) to enable live daily price updates.`} Embedded data: iScrap, scrap-monitor.com, Okon Recycling (May 2026).</div>`;
+}
+
+// ── SUPPLIER SEARCH ───────────────────────────────────────────
+async function searchSuppliers(){
+  if(!S.apiKey){openApiModal();return;}
+  if(!S.supSearchQ.trim()){toast("Enter a location or type to search","err");return;}
+  S.supSearching=true;S.supSearchDone=false;S.supResults=[];render();
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-api-key":S.apiKey,"anthropic-version":"2023-06-01"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",max_tokens:2000,
+        tools:[{type:"web_search_20250305",name:"web_search"}],
+        system:`You search for scrap metal yards, auto salvage yards, and metal recycling centers. Return ONLY a JSON array, no markdown, no backticks, no other text:
+[{"name":"Business Name","address":"Full address","phone":"000-000-0000","city":"City, ST","hours":"hours or empty string","rating":"4.5 or empty","notes":"one sentence about what they buy/specialize in","url":"website or empty"}]
+Return up to 8 results. If no results found return [].`,
+        messages:[{role:"user",content:`Search for scrap metal yards and auto salvage yards near: ${S.supSearchQ}. Find their names, addresses, phone numbers, hours, and what they buy.`}]
+      })
+    });
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    const data=await res.json();
+    const txt=data.content.filter(b=>b.type==="text").map(b=>b.text).join("");
+    const m=txt.match(/\[[\s\S]*\]/);
+    if(m){
+      S.supResults=JSON.parse(m[0]);
+      toast(`Found ${S.supResults.length} yards`,"ok");
+    }else{S.supResults=[];}
+  }catch(e){toast("Search failed: "+e.message,"err");S.supResults=[];}
+  S.supSearching=false;S.supSearchDone=true;render();
+}
+function addSearchResult(idx){
+  const r=S.supResults[idx];
+  if(!r)return;
+  if(S.sources.find(x=>x.name===r.name)){toast("Already in your sources");return;}
+  S.sources.push({id:uid(),name:r.name,type:"Junkyard",phone:r.phone||"",city:r.city||"",notes:r.notes||""});
+  saveLS();toast(r.name+" added to sources","ok");render();
+}
+
+// ── FIND SUPPLIERS ────────────────────────────────────────────
+function renderSuppliers(){
+  const added=new Set(S.sources.map(x=>x.name));
+  const q=(S.supQ||"").toLowerCase();
+  const cities=["All",...[...new Set(DFW.map(l=>l.city))]];
+  if(!S.supCity)S.supCity="All";
+  let leads=DFW;
+  if(S.supCity&&S.supCity!=="All")leads=leads.filter(l=>l.city===S.supCity);
+  if(q)leads=leads.filter(l=>[l.name,l.city,l.addr,l.note,l.phone].some(v=>(v||"").toLowerCase().includes(q)));
+  const tips=q?TIPS.filter(t=>(t.title+t.body).toLowerCase().includes(q)):TIPS;
+  const totalShown=S.supTab==="leads"?leads.length:tips.length;
+
+  // AI search results panel
+  const aiPanel=`
+<div style="background:linear-gradient(135deg,#1a2e1c,#16231a);border-radius:var(--rlg);padding:18px 20px;margin-bottom:20px;color:#fff">
+  <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:#fff">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c8a44a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    Find New Suppliers Anywhere
+  </div>
+  <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:12px">Search for scrap yards by city, state, or region using live web data</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <input type="text" id="sup-search-inp" placeholder="e.g. Phoenix AZ scrap yards, Houston aluminum recycling…" value="${esc(S.supSearchQ)}" oninput="S.supSearchQ=this.value" onkeydown="if(event.key==='Enter')searchSuppliers()" style="flex:1;min-width:200px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff;font-size:13px">
+    <button class="btn btn-p" onclick="searchSuppliers()" ${S.supSearching?"disabled":""} style="white-space:nowrap;background:#c8861a;border-color:#c8861a">
+      ${S.supSearching?`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;animation:sp .6s linear infinite"><path d="M20 11a8.1 8.1 0 0 0-15.5-2m-.5-4v4h4M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg> Searching…`:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px"><path d="M10 10m-7 0a7 7 0 1 0 14 0 7 7 0 0 0-14 0M21 21l-6-6"/></svg> Search`}
+    </button>
+  </div>
+  ${!S.apiKey?`<div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:8px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>Requires an API key — set it in the sidebar</div>`:""}
+</div>
+${S.supSearchDone&&S.supResults.length>0?`
+<div style="margin-bottom:20px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div style="font-size:13px;font-weight:700">${S.supResults.length} results for "${esc(S.supSearchQ)}"</div>
+    <button class="btn btn-g btn-sm" onclick="S.supSearchDone=false;S.supResults=[];render()">Clear results</button>
+  </div>
+  ${S.supResults.map((r,i)=>{
+    const isAdded=S.sources.find(x=>x.name===r.name);
+    return`<div class="lead-card" style="margin-bottom:10px">
+      <div class="lead-accent ${isAdded?"added":""}"></div>
+      <div class="lead-body">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <div class="lead-name">${esc(r.name)}</div>
+          ${r.rating?`<span style="font-size:12px;font-weight:700;color:var(--ac)">★ ${esc(r.rating)}</span>`:""}
+          ${isAdded?`<span class="badge bg"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M5 12l5 5L20 7"/></svg>In Your Sources</span>`:""}
+        </div>
+        <div class="lead-meta">
+          ${r.address?`<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 1c0 4.418-6 10-6 10S6 16.418 6 12a6 6 0 1 1 12 0z"/></svg>${esc(r.address)}</span>`:""}
+          ${r.phone?`<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a href="tel:${esc(r.phone)}" style="color:inherit;font-weight:500">${esc(r.phone)}</a></span>`:""}
+          ${r.hours?`<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M12 12m-9 0a9 9 0 1 0 18 0 9 9 0 0 0-18 0M12 7v5l3 3"/></svg>${esc(r.hours)}</span>`:""}
+        </div>
+        ${r.notes?`<div class="lead-note">${esc(r.notes)}</div>`:""}
+      </div>
+      <div class="lead-actions">
+        ${!isAdded?`<button class="btn btn-p btn-sm" onclick="addSearchResult(${i})"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M12 5v14M5 12h14"/></svg>Add to Sources</button>`:`<span style="font-size:12px;color:var(--gn);font-weight:600;white-space:nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M5 12l5 5L20 7"/></svg>Saved</span>`}
+        ${r.url?`<a href="${esc(r.url)}" target="_blank" class="btn btn-g btn-sm" style="text-decoration:none;font-size:11px">Website</a>`:""}
+      </div>
+    </div>`;
+  }).join("")}
+</div>`:""}
+${S.supSearchDone&&S.supResults.length===0?`<div class="card" style="margin-bottom:20px"><div class="empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 10px;color:var(--tx3)"><path d="M10 10m-7 0a7 7 0 1 0 14 0 7 7 0 0 0-14 0M21 21l-6-6"/></svg><div class="empty-t">No results found</div><div class="empty-s">Try a different location or broader search term</div></div></div>`:""}`;
+
+  return aiPanel+`
+<div class="sup-search-bar">
+  <div class="sw" style="flex:1;max-width:380px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M10 10m-7 0a7 7 0 1 0 14 0 7 7 0 0 0-14 0M21 21l-6-6"/></svg><input type="search" placeholder="${S.supTab==="leads"?"Filter DFW yards…":"Filter tips…"}" value="${esc(S.supQ||"")}" oninput="S.supQ=this.value;render()" style="width:100%"></div>
+  ${q?`<button class="btn btn-g btn-sm" onclick="S.supQ='';render()">Clear</button>`:""}
+  <span style="font-size:12px;color:var(--tx2);margin-left:auto">${totalShown} result${totalShown!==1?"s":""}</span>
+</div>
+<div class="stabs">
+  <div class="stab ${S.supTab==="leads"?"on":""}" onclick="S.supTab='leads';render()">DFW Yards <span style="background:rgba(0,0,0,.08);border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px">${DFW.length}</span></div>
+  <div class="stab ${S.supTab==="tips"?"on":""}" onclick="S.supTab='tips';render()">Prospecting Tips <span style="background:rgba(0,0,0,.08);border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px">${TIPS.length}</span></div>
+</div>
+${S.supTab==="leads"?`
+<div class="sup-filters">
+  <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);align-self:center;margin-right:4px">City:</span>
+  ${cities.map(c=>`<button class="sup-filter ${S.supCity===c?"on":""}" onclick="S.supCity='${c}';render()">${c}</button>`).join("")}
+  <span style="font-size:11px;color:var(--tx2);margin-left:auto;align-self:center">${leads.filter(l=>added.has(l.name)).length} of ${DFW.length} saved</span>
+</div>
+${leads.length?leads.map(l=>{
+  const isAdded=added.has(l.name);
+  const stars=Math.round(l.rating);
+  return`<div class="lead-card">
+  <div class="lead-accent ${isAdded?"added":""}"></div>
+  <div class="lead-body">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div class="lead-name">${esc(l.name)}</div>
+      <div style="display:flex;gap:1px;font-size:13px;color:#e8a820">${"★".repeat(stars)}<span style="color:var(--tx3)">${"★".repeat(5-stars)}</span></div>
+      <span style="font-size:12px;font-weight:700;color:var(--ac)">${l.rating}</span>
+      <span style="font-size:11px;color:var(--tx3)">${l.reviews.toLocaleString()} reviews</span>
+      ${isAdded?`<span class="badge bg"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M5 12l5 5L20 7"/></svg>In Your Sources</span>`:""}
+    </div>
+    <div class="lead-meta">
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 1c0 4.418-6 10-6 10S6 16.418 6 12a6 6 0 1 1 12 0z"/></svg>${esc(l.city)}</span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a href="tel:${esc(l.phone)}" style="color:inherit;font-weight:500">${esc(l.phone)}</a></span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M12 12m-9 0a9 9 0 1 0 18 0 9 9 0 0 0-18 0M12 7v5l3 3"/></svg>${esc(l.hours)}</span>
+    </div>
+    <div style="font-size:11px;color:var(--tx2);margin-top:4px">${esc(l.addr)}</div>
+    <div class="lead-note">${esc(l.note)}</div>
+  </div>
+  <div class="lead-actions">
+    ${!isAdded?`<button class="btn btn-p btn-sm" onclick="addLead('${esc(l.name).replace(/'/g,"\\'")}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M12 5v14M5 12h14"/></svg>Add to Sources</button>`:`<span style="font-size:12px;color:var(--gn);font-weight:600;white-space:nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px"><path d="M5 12l5 5L20 7"/></svg>Saved</span>`}
+    ${l.url?`<a href="${esc(l.url)}" target="_blank" class="btn btn-g btn-sm" style="text-decoration:none;font-size:11px">Website</a>`:""}
+  </div>
+</div>`;}).join(""):`<div class="card"><div class="empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 10px;color:var(--tx3)"><path d="M10 10m-7 0a7 7 0 1 0 14 0 7 7 0 0 0-14 0M21 21l-6-6"/></svg><div class="empty-t">No yards match your filter</div><div class="empty-s">Try clearing the search or city filter</div></div></div>`}`:`
+<div style="display:flex;flex-direction:column;gap:10px">
+${tips.length?tips.map(t=>`<div class="tip-card2">
+  <div class="tip-icon2">${(()=>{const M={'ti-tool':'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z','ti-car':'M7 17m-2 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0M17 17m-2 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0M5 17H3v-4l2-5h11l3 5 1 1h1v3h-2M3 13h18','ti-building':'M3 21h18M4 21V7l8-4 8 4v14M9 21v-6h6v6M9 9h.01M15 9h.01M9 13h.01M15 13h.01','ti-brand-facebook':'M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2z','ti-trophy':'M8 21h8m-4-4v4M8 5H5v6a7 7 0 0 0 14 0V5h-3M8 5V3M16 5V3M8 5h8','ti-users':'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z','ti-map-pin':'M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 1c0 4.418-6 10-6 10S6 16.418 6 12a6 6 0 1 1 12 0z','ti-phone':'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2','ti-bulb':'M9 16a5 5 0 1 1 6 0 3.5 3.5 0 0 0-1 3 2 2 0 0 1-4 0 3.5 3.5 0 0 0-1-3m.7 1h4.6M12 3v1'};return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--bl)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="${M[t.icon]||'M12 12m-9 0a9 9 0 1 0 18 0 9 9 0 0 0-18 0'}"/></svg>`})()}</div>
+  <div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:5px">${esc(t.title)}</div><div style="font-size:12px;color:var(--tx2);line-height:1.65">${esc(t.body)}</div></div>
+</div>`).join(""):`<div class="card"><div class="empty"><div class="empty-t">No tips match</div></div></div>`}
+</div>`}`;
+}
+  let leads=DFW;
+  if(S.supCity&&S.supCity!=="All")leads=leads.filter(l=>l.city===S.supCity);
+  if(q)leads=leads.filter(l=>[l.name,l.city,l.addr,l.note,l.phone].some(v=>(v||"").toLowerCase().includes(q)));
+  const tips=q?TIPS.filter(t=>(t.title+t.body).toLowerCase().includes(q)):TIPS;
+  const totalShown=S.supTab==="leads"?leads.length:tips.length;
+  return`
+<div class="sup-search-bar">
+  <div class="sw" style="flex:1;max-width:380px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M10 10m-7 0a7 7 0 1 0 14 0 7 7 0 0 0-14 0M21 21l-6-6"/></svg><input type="search" placeholder="${S.supTab==="leads"?"Search yards by name, city, phone…":"Search tips…"}" value="${esc(S.supQ||"")}" oninput="S.supQ=this.value;render()" style="width:100%"></div>
+  ${q?`<button class="btn btn-g btn-sm" onclick="S.supQ='';render()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M18 6L6 18M6 6l12 12"/></svg> Clear</button>`:""}
+  <span style="font-size:12px;color:var(--tx2);margin-left:auto">${totalShown} result${totalShown!==1?"s":""}</span>
+</div>
+<div class="stabs">
+  <div class="stab ${S.supTab==="leads"?"on":""}" onclick="S.supTab='leads';render()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 1c0 4.418-6 10-6 10S6 16.418 6 12a6 6 0 1 1 12 0z"/></svg> DFW Yards <span style="background:rgba(0,0,0,.08);border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px">${DFW.length}</span></div>
+  <div class="stab ${S.supTab==="tips"?"on":""}" onclick="S.supTab='tips';render()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M9 16a5 5 0 1 1 6 0 3.5 3.5 0 0 0-1 3 2 2 0 0 1-4 0 3.5 3.5 0 0 0-1-3m.7 1h4.6M12 3v1m-6.4 1.6.7.7m12.1-.7-.7.7M3 12h1m16 0h1"/></svg> Prospecting Tips <span style="background:rgba(0,0,0,.08);border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px">${TIPS.length}</span></div>
+</div>
+${S.supTab==="leads"?`
+<div class="sup-filters">
+  <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);align-self:center;margin-right:4px">City:</span>
+  ${cities.map(c=>`<button class="sup-filter ${S.supCity===c?"on":""}" onclick="S.supCity='${c}';render()">${c}</button>`).join("")}
+  <span style="font-size:11px;color:var(--tx2);margin-left:auto;align-self:center">${leads.filter(l=>added.has(l.name)).length} of ${DFW.length} saved to sources</span>
+</div>
+${leads.length?leads.map(l=>{
+  const isAdded=added.has(l.name);
+  const stars=Math.round(l.rating);
+  return`<div class="lead-card">
+  <div class="lead-accent ${isAdded?"added":""}"></div>
+  <div class="lead-body">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div class="lead-name">${esc(l.name)}</div>
+      <div style="display:flex;gap:1px">${"★".repeat(stars)}<span style="color:var(--tx3)">${"★".repeat(5-stars)}</span></div>
+      <span style="font-size:12px;font-weight:700;color:var(--ac)">${l.rating}</span>
+      <span style="font-size:11px;color:var(--tx3)">${l.reviews.toLocaleString()} reviews</span>
+      ${isAdded?`<span class="badge bg"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 12l5 5L20 7"/></svg>In Your Sources</span>`:""}
+    </div>
+    <div class="lead-meta">
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;vertical-align:-1px"><path d="M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 1c0 4.418-6 10-6 10S6 16.418 6 12a6 6 0 1 1 12 0z"/></svg>${esc(l.city)}</span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;vertical-align:-1px"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a href="tel:${esc(l.phone)}" style="color:inherit;font-weight:500">${esc(l.phone)}</a></span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;vertical-align:-1px"><path d="M12 12m-9 0a9 9 0 1 0 18 0 9 9 0 0 0-18 0M12 7v5l3 3"/></svg>${esc(l.hours)}</span>
+    </div>
+    <div style="font-size:11px;color:var(--tx2);margin-top:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M12 12m-3 0a3 3 0 1 0 6 0 3 3 0 0 0-6 0M12 2a8 8 0 0 1 8 8c0 5.4-7.4 11.5-7.7 11.8a.5.5 0 0 1-.6 0C11.4 21.5 4 15.4 4 10a8 8 0 0 1 8-8z"/></svg>${esc(l.addr)}</div>
+    <div class="lead-note"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H8l-4 4V5a1 1 0 0 1 1-1z"/></svg>${esc(l.note)}</div>
+  </div>
+  <div class="lead-actions">
+    ${!isAdded?`<button class="btn btn-p btn-sm" onclick="addLead('${esc(l.name).replace(/'/g,"\\'")}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M12 5v14M5 12h14"/></svg> Add to Sources</button>`:`<span style="font-size:12px;color:var(--gn);font-weight:600;white-space:nowrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 12l5 5L20 7"/></svg> Saved</span>`}
+    ${l.url?`<a href="${esc(l.url)}" target="_blank" class="btn btn-g btn-sm" style="text-decoration:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M11 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-5M10 14L20 4M15 4h5v5"/></svg> Website</a>`:""}
+  </div>
+</div>`;}).join(""):
+`<div class="card"><div class="empty"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M11 11m-7 0a7 7 0 1 0 14 0 7 7 0 0 0-14 0M21 21l-6-6"/></svg><div class="empty-t">No yards match "${esc(S.supQ)}"</div><div class="empty-s">Try a different search or clear the filter</div></div></div>`}`:`
+<div style="display:flex;flex-direction:column;gap:10px">
+${tips.length?tips.map(t=>`<div class="tip-card2">
+  <div class="tip-icon2">${(()=>{const M={'ti-tool':'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z','ti-car':'M7 17m-2 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0M17 17m-2 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0M5 17H3v-4l2-5h11l3 5 1 1h1v3h-2M3 13h18','ti-building':'M3 21h18M4 21V7l8-4 8 4v14M9 21v-6h6v6M9 9h.01M15 9h.01M9 13h.01M15 13h.01','ti-brand-facebook':'M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2z','ti-trophy':'M8 21h8m-4-4v4M8 5H5v6a7 7 0 0 0 14 0V5h-3M8 5V3M16 5V3M8 5h8','ti-users':'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z','ti-map-pin':'M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 1c0 4.418-6 10-6 10S6 16.418 6 12a6 6 0 1 1 12 0z','ti-phone':'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2','ti-bulb':'M9 16a5 5 0 1 1 6 0 3.5 3.5 0 0 0-1 3 2 2 0 0 1-4 0 3.5 3.5 0 0 0-1-3m.7 1h4.6M12 3v1'};return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--bl)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="${M[t.icon]||'M12 12m-9 0a9 9 0 1 0 18 0 9 9 0 0 0-18 0'}"/></svg>`})()}</div>
+  <div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:5px">${esc(t.title)}</div><div style="font-size:12px;color:var(--tx2);line-height:1.65">${esc(t.body)}</div></div>
+</div>`).join(""):
+`<div class="card"><div class="empty"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M9 16a5 5 0 1 1 6 0 3.5 3.5 0 0 0-1 3 2 2 0 0 1-4 0 3.5 3.5 0 0 0-1-3m.7 1h4.6M12 3v1m-6.4 1.6.7.7m12.1-.7-.7.7M3 12h1m16 0h1"/></svg><div class="empty-t">No tips match "${esc(S.supQ)}"</div></div></div>`}
+</div>`}`
+}
+function addLead(name){
+  const l=DFW.find(x=>x.name===name);if(!l)return;
+  if(S.sources.find(x=>x.name===l.name)){toast("Already in your sources");return;}
+  S.sources.push({id:uid(),name:l.name,type:"Junkyard",phone:l.phone,city:l.city+", TX",notes:l.note});
+  saveLS();toast(l.name+" added to sources","ok");render();
+}
+
+// ── PURCHASES ─────────────────────────────────────────────────
+function renderPurchases(){
+  const rows=applySort(S.purchases);
+  const tc=rows.reduce((s,p)=>s+p.paid,0),tl=rows.reduce((s,p)=>s+p.lbs,0);
+  const srcOpts=S.sources.map(s=>`<option value="${esc(s.name)}">${esc(s.name)}</option>`).join("");
+  const tOpts=MT.map(t=>`<option>${esc(t)}</option>`).join("");
+  return`
+${S.form?`<div class="fpanel"><div class="fpanel-hdr"><div class="fpanel-title">Log New Purchase</div><button class="bico" onclick="S.form=false;render()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+<div class="fgrid">
+  <div class="fg"><label class="fl">Date</label><input type="date" id="p_d" value="${new Date().toISOString().slice(0,10)}"></div>
+  <div class="fg"><label class="fl">Source</label><select id="p_s" onchange="$('p_cw').style.display=this.value==='__o'?'':'none'"><option value="">Select…</option>${srcOpts}<option value="__o">Other…</option></select></div>
+  <div class="fg" id="p_cw" style="display:none"><label class="fl">Custom name</label><input type="text" id="p_cn" placeholder="Enter name"></div>
+  <div class="fg"><label class="fl">Metal Type</label><select id="p_t">${tOpts}</select></div>
+  <div class="fg"><label class="fl">Qty (rims)</label><input type="number" id="p_q" min="0" placeholder="0"></div>
+  <div class="fg"><label class="fl">Weight (lbs)</label><input type="number" id="p_w" min="0" step="0.1" placeholder="0.0" oninput="pCalc()"></div>
+  <div class="fg"><label class="fl">Total Paid ($)</label><input type="number" id="p_tp" min="0" step="0.01" placeholder="0.00" oninput="pCalc()"></div>
+  <div class="fg"><label class="fl">Cost per lb</label><div id="p_cpl" class="calc-off">—</div></div>
+  <div class="fg" style="grid-column:1/-1"><label class="fl">Notes</label><input type="text" id="p_n" placeholder="Optional"></div>
+</div>
+<div class="factions"><button class="btn btn-p" onclick="savePurchase()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 12l5 5L20 7"/></svg> Save Purchase</button><button class="btn btn-g" onclick="S.form=false;render()">Cancel</button></div>
+</div>`:""}
+<div class="card">
+  <div class="card-hdr"><div class="card-title">All Purchases (${rows.length})</div><div class="sw"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M10 10m-7 0a7 7 0 1 0 14 0 7 7 0 0 0-14 0M21 21l-6-6"/></svg><input type="search" placeholder="Search…" value="${esc(S.q)}" oninput="S.q=this.value;render()" style="width:200px"></div></div>
+  <div class="tw"><table><thead><tr>${TH("Date","date")}${TH("Source","src")}<th>Type</th>${TH("Qty","qty")}${TH("Weight","lbs")}${TH("Paid","paid")}<th style="text-align:right">$/lb</th><th></th></tr></thead>
+  <tbody>${rows.length?rows.map(p=>`<tr><td>${p.date}</td><td><strong>${esc(p.src)}</strong>${p.notes?`<div style="font-size:11px;color:var(--tx3)">${esc(p.notes)}</div>`:""}</td><td>${typeBadge(p.type)}</td><td>${p.qty>0?p.qty+" rims":"—"}</td><td>${fmtLb(p.lbs)}</td><td><strong>${fmtD(p.paid)}</strong></td><td style="text-align:right;font-family:monospace;font-size:12px">$${(p.paid/p.lbs).toFixed(3)}</td><td><button class="bico" onclick="delPurchase(${p.id})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 7h16M10 11v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg></button></td></tr>`).join(""):`<tr><td colspan="8"><div class="empty"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 4h1.5L8 15h9l2.5-8H7M8 15l-1.5-1.5M10 19a1 1 0 1 0 2 0 1 1 0 0 0-2 0m7 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/></svg><div class="empty-t">No purchases logged yet</div><div class="empty-s">Click "Log Purchase" above to get started</div></div></td></tr>`}
+  </tbody></table></div>
+  ${rows.length?`<div class="tstats"><span>Spent: <strong>${fmtD(tc)}</strong></span><span>Weight: <strong>${fmtLb(tl)}</strong></span><span>Avg $/lb: <strong>$${tl?(tc/tl).toFixed(3):"—"}</strong></span><span>Records: <strong>${rows.length}</strong></span></div>`:""}
+</div>`;
+}
+function pCalc(){const w=parseFloat($("p_w")?.value)||0,t=parseFloat($("p_tp")?.value)||0,el=$("p_cpl");if(el){if(w&&t){el.textContent="$"+(t/w).toFixed(3)+"/lb";el.className="calc-ok";}else{el.textContent="—";el.className="calc-off";}}}
+function savePurchase(){
+  let src=$("p_s").value;if(src==="__o")src=($("p_cn").value||"").trim();
+  const w=parseFloat($("p_w").value),t=parseFloat($("p_tp").value);
+  if(!src){toast("Select or enter a source","err");return;}if(!w||!t){toast("Weight and paid are required","err");return;}
+  S.purchases.push({id:uid(),date:$("p_d").value,src,type:$("p_t").value,qty:parseInt($("p_q").value)||0,lbs:w,paid:t,notes:($("p_n").value||"").trim()});
+  saveLS();S.form=false;toast("Purchase logged","ok");render();
+}
+function delPurchase(id){confirmDel("Delete this purchase? Cannot be undone.",()=>{S.purchases=S.purchases.filter(p=>p.id!==id);saveLS();toast("Purchase deleted");render();});}
+
+// ── SALES ─────────────────────────────────────────────────────
+function renderSales(){
+  const rows=applySort(S.sales);
+  const tr=rows.reduce((s,x)=>s+x.total,0),tl=rows.reduce((s,x)=>s+x.lbs,0);
+  const bOpts=S.buyers.map(b=>`<option value="${esc(b.name)}" data-r="${b.rate}">${esc(b.name)} ($${b.rate.toFixed(3)}/lb)</option>`).join("");
+  const tOpts=MT.map(t=>`<option>${esc(t)}</option>`).join("");
+  return`
+${S.form?`<div class="fpanel"><div class="fpanel-hdr"><div class="fpanel-title">Log New Sale</div><button class="bico" onclick="S.form=false;render()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+<div class="fgrid">
+  <div class="fg"><label class="fl">Date</label><input type="date" id="s_d" value="${new Date().toISOString().slice(0,10)}"></div>
+  <div class="fg"><label class="fl">Buyer</label><select id="s_b" onchange="sPrefill(this)"><option value="">Select…</option>${bOpts}<option value="__o">Other…</option></select></div>
+  <div class="fg"><label class="fl">Metal Type</label><select id="s_t">${tOpts}</select></div>
+  <div class="fg"><label class="fl">Weight (lbs)</label><input type="number" id="s_w" min="0" step="0.1" placeholder="0.0" oninput="sCalc()"></div>
+  <div class="fg"><label class="fl">Price / lb ($)</label><input type="number" id="s_r" min="0" step="0.001" placeholder="0.000" oninput="sCalc()"></div>
+  <div class="fg"><label class="fl">Total Payout</label><div id="s_tot" class="calc-off">—</div></div>
+  <div class="fg" style="grid-column:1/-1"><label class="fl">Notes</label><input type="text" id="s_n" placeholder="Optional"></div>
+</div>
+<div class="factions"><button class="btn btn-p" onclick="saveSale()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 12l5 5L20 7"/></svg> Save Sale</button><button class="btn btn-g" onclick="S.form=false;render()">Cancel</button></div>
+</div>`:""}
+<div class="card">
+  <div class="card-hdr"><div class="card-title">All Sales (${rows.length})</div><div class="sw"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M10 10m-7 0a7 7 0 1 0 14 0 7 7 0 0 0-14 0M21 21l-6-6"/></svg><input type="search" placeholder="Search…" value="${esc(S.q)}" oninput="S.q=this.value;render()" style="width:200px"></div></div>
+  <div class="tw"><table><thead><tr>${TH("Date","date")}${TH("Buyer","buyer")}<th>Type</th>${TH("Weight","lbs")}${TH("$/lb","rate")}${TH("Total","total")}<th></th></tr></thead>
+  <tbody>${rows.length?rows.map(s=>`<tr><td>${s.date}</td><td><strong>${esc(s.buyer)}</strong>${s.notes?`<div style="font-size:11px;color:var(--tx3)">${esc(s.notes)}</div>`:""}</td><td>${typeBadge(s.type)}</td><td>${fmtLb(s.lbs)}</td><td style="font-family:monospace;font-size:12px">$${s.rate.toFixed(3)}</td><td><strong style="color:var(--gn)">${fmtD(s.total)}</strong></td><td><button class="bico" onclick="delSale(${s.id})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 7h16M10 11v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg></button></td></tr>`).join(""):`<tr><td colspan="7"><div class="empty"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M3 17l6-6 4 4 8-8M14 7h6v6"/></svg><div class="empty-t">No sales logged yet</div></div></td></tr>`}
+  </tbody></table></div>
+  ${rows.length?`<div class="tstats"><span>Revenue: <strong style="color:var(--gn)">${fmtD(tr)}</strong></span><span>Weight: <strong>${fmtLb(tl)}</strong></span><span>Avg rate: <strong>$${tl?(tr/tl).toFixed(3):"—"}/lb</strong></span></div>`:""}
+</div>`;
+}
+function sPrefill(sel){const r=sel.options[sel.selectedIndex].dataset.r;if(r){$("s_r").value=r;sCalc();}}
+function sCalc(){const w=parseFloat($("s_w")?.value)||0,r=parseFloat($("s_r")?.value)||0,el=$("s_tot");if(el){if(w&&r){el.textContent=fmtD(w*r);el.className="calc-ok";}else{el.textContent="—";el.className="calc-off";}}}
+function saveSale(){
+  let buyer=$("s_b").value;if(buyer==="__o")buyer=prompt("Enter buyer name:")||"";
+  const w=parseFloat($("s_w").value),r=parseFloat($("s_r").value);
+  if(!buyer){toast("Select a buyer","err");return;}if(!w||!r){toast("Weight and rate are required","err");return;}
+  S.sales.push({id:uid(),date:$("s_d").value,buyer,type:$("s_t").value,lbs:w,rate:r,total:w*r,notes:($("s_n").value||"").trim()});
+  saveLS();S.form=false;toast("Sale logged","ok");render();
+}
+function delSale(id){confirmDel("Delete this sale? Cannot be undone.",()=>{S.sales=S.sales.filter(x=>x.id!==id);saveLS();toast("Sale deleted");render();});}
+
+// ── SOURCES ───────────────────────────────────────────────────
+function renderSources(){
+  const rows=S.sources.filter(s=>!S.q||[s.name,s.city,s.type,s.notes].some(v=>(v||"").toLowerCase().includes(S.q.toLowerCase())));
+  const stOpts=ST_TYPES.map(t=>`<option>${esc(t)}</option>`).join("");
+  return`
+${S.form?`<div class="fpanel"><div class="fpanel-hdr"><div class="fpanel-title">Add New Source</div><button class="bico" onclick="S.form=false;render()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+<div class="fgrid">
+  <div class="fg"><label class="fl">Name / Business</label><input type="text" id="sc_n" placeholder="e.g. Dallas Junkyard"></div>
+  <div class="fg"><label class="fl">Type</label><select id="sc_t">${stOpts}</select></div>
+  <div class="fg"><label class="fl">Phone</label><input type="tel" id="sc_p" placeholder="000-000-0000"></div>
+  <div class="fg"><label class="fl">City</label><input type="text" id="sc_c" placeholder="City, TX"></div>
+  <div class="fg" style="grid-column:1/-1"><label class="fl">Notes</label><input type="text" id="sc_no" placeholder="Best time to call, what they carry…"></div>
+</div>
+<div class="factions"><button class="btn btn-p" onclick="saveSource()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 12l5 5L20 7"/></svg> Save Source</button><button class="btn btn-g" onclick="S.form=false;render()">Cancel</button></div>
+</div>`:""}
+<div style="margin-bottom:14px"><div class="sw" style="max-width:300px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M10 10m-7 0a7 7 0 1 0 14 0 7 7 0 0 0-14 0M21 21l-6-6"/></svg><input type="search" placeholder="Search sources…" value="${esc(S.q)}" oninput="S.q=this.value;render()"></div></div>
+${rows.length?`<div class="cgrid">${rows.map(s=>`<div class="cc"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><div style="font-weight:700;font-size:14px;margin-bottom:4px">${esc(s.name)}</div>${srcBadge(s.type)}</div><button class="bico" onclick="delSource(${s.id})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 7h16M10 11v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg></button></div><div style="font-size:12px;color:var(--tx2);display:flex;flex-direction:column;gap:4px">${s.phone?`<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a href="tel:${esc(s.phone)}" style="color:inherit">${esc(s.phone)}</a></span>`:""}${s.city?`<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 1c0 4.418-6 10-6 10S6 16.418 6 12a6 6 0 1 1 12 0z"/></svg>${esc(s.city)}</span>`:""}${s.notes?`<span style="font-style:italic;color:var(--tx3)">${esc(s.notes)}</span>`:""}</div></div>`).join("")}</div>`:`<div class="card"><div class="empty"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 1c0 4.418-6 10-6 10S6 16.418 6 12a6 6 0 1 1 12 0z"/></svg><div class="empty-t">No sources found</div><div class="empty-s">Add a source or use "Find Suppliers" to discover DFW yards</div></div></div>`}`;
+}
+function saveSource(){const n=($("sc_n").value||"").trim();if(!n){toast("Name required","err");return;}S.sources.push({id:uid(),name:n,type:$("sc_t").value,phone:$("sc_p").value,city:$("sc_c").value,notes:$("sc_no").value});saveLS();S.form=false;toast("Source added","ok");render();}
+function delSource(id){confirmDel("Remove this source?",()=>{S.sources=S.sources.filter(x=>x.id!==id);saveLS();toast("Source removed");render();});}
+
+// ── BUYERS ────────────────────────────────────────────────────
+function renderBuyers(){
+  return`
+${S.form?`<div class="fpanel"><div class="fpanel-hdr"><div class="fpanel-title">Add New Buyer</div><button class="bico" onclick="S.form=false;render()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+<div class="fgrid">
+  <div class="fg"><label class="fl">Company Name</label><input type="text" id="b_n" placeholder="Texas Aluminum Co."></div>
+  <div class="fg"><label class="fl">Contact Name</label><input type="text" id="b_c" placeholder="First Last"></div>
+  <div class="fg"><label class="fl">Phone</label><input type="tel" id="b_p" placeholder="000-000-0000"></div>
+  <div class="fg"><label class="fl">Email</label><input type="email" id="b_e" placeholder="email@co.com"></div>
+  <div class="fg"><label class="fl">Rate ($/lb)</label><input type="number" id="b_r" step="0.001" min="0" placeholder="0.000"></div>
+  <div class="fg"><label class="fl">Notes</label><input type="text" id="b_no" placeholder="Payment terms, preferences…"></div>
+</div>
+<div class="factions"><button class="btn btn-p" onclick="saveBuyer()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 12l5 5L20 7"/></svg> Save Buyer</button><button class="btn btn-g" onclick="S.form=false;render()">Cancel</button></div>
+</div>`:""}
+${S.buyers.length?`<div class="cgrid">${S.buyers.map(b=>`<div class="cc"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><div style="font-weight:700;font-size:14px">${esc(b.name)}</div>${b.contact?`<div style="font-size:12px;color:var(--tx2);margin-top:2px">${esc(b.contact)}</div>`:""}</div><div style="display:flex;align-items:center;gap:8px">${b.rate>0?`<span class="badge bg" style="font-size:13px;font-weight:700">$${b.rate.toFixed(3)}/lb</span>`:""}<button class="bico" onclick="delBuyer(${b.id})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 7h16M10 11v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg></button></div></div><div style="font-size:12px;color:var(--tx2);display:flex;flex-direction:column;gap:4px">${b.phone?`<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a href="tel:${esc(b.phone)}" style="color:inherit">${esc(b.phone)}</a></span>`:""}${b.email?`<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7zm0 0l9 6 9-6"/></svg><a href="mailto:${esc(b.email)}" style="color:inherit">${esc(b.email)}</a></span>`:""}${b.notes?`<span style="font-style:italic;color:var(--tx3)">${esc(b.notes)}</span>`:""}</div></div>`).join("")}</div>`:`<div class="card"><div class="empty"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5M10 7h.01M14 7h.01M10 11h.01M14 11h.01"/></svg><div class="empty-t">No buyers added yet</div><div class="empty-s">Add your aluminum buyers to streamline the sales form</div></div></div>`}`;
+}
+function saveBuyer(){const n=($("b_n").value||"").trim();if(!n){toast("Company name required","err");return;}S.buyers.push({id:uid(),name:n,contact:$("b_c").value,phone:$("b_p").value,email:$("b_e").value,rate:parseFloat($("b_r").value)||0,notes:$("b_no").value});saveLS();S.form=false;toast("Buyer added","ok");render();}
+function delBuyer(id){confirmDel("Remove this buyer?",()=>{S.buyers=S.buyers.filter(x=>x.id!==id);saveLS();toast("Buyer removed");render();});}
+
+
+// ── INVENTORY ─────────────────────────────────────────────────
+function getInventoryRows(){
+  const map={};
+  S.purchases.forEach(p=>{const k=p.type||"Other";map[k]=map[k]||{type:k,bought:0,sold:0,cost:0,rev:0};map[k].bought+=Number(p.lbs)||0;map[k].cost+=Number(p.paid)||0;});
+  S.sales.forEach(x=>{const k=x.type||"Other";map[k]=map[k]||{type:k,bought:0,sold:0,cost:0,rev:0};map[k].sold+=Number(x.lbs)||0;map[k].rev+=Number(x.total)||0;});
+  return Object.values(map).map(r=>{r.onHand=r.bought-r.sold;r.avgBuy=r.bought?r.cost/r.bought:0;r.value=r.onHand*(r.type.includes("Aluminum")?S.mktRate:(S.buyers[0]?.rate||S.mktRate));r.openCost=r.onHand*r.avgBuy;r.unrealized=r.value-r.openCost;return r;}).sort((a,b)=>b.value-a.value);
+}
+function renderInventory(){
+  const rows=getInventoryRows();
+  const onHand=rows.reduce((s,r)=>s+r.onHand,0), value=rows.reduce((s,r)=>s+r.value,0), cost=rows.reduce((s,r)=>s+r.openCost,0), unreal=value-cost;
+  const buyBySource={};
+  S.purchases.forEach(p=>{buyBySource[p.src]=buyBySource[p.src]||{lbs:0,paid:0,loads:0};buyBySource[p.src].lbs+=Number(p.lbs)||0;buyBySource[p.src].paid+=Number(p.paid)||0;buyBySource[p.src].loads++;});
+  const topSources=Object.entries(buyBySource).sort((a,b)=>b[1].lbs-a[1].lbs).slice(0,6);
+  return`
+<div class="mgrid">
+  <div class="mc"><div class="mc-lbl">On Hand</div><div class="mc-val" style="color:var(--bl)">${fmtLb(onHand)}</div><div class="mc-sub">Purchased minus sold</div></div>
+  <div class="mc"><div class="mc-lbl">Est. Inventory Value</div><div class="mc-val" style="color:var(--gn)">${fmtD(value)}</div><div class="mc-sub">Based on market/buyer rates</div></div>
+  <div class="mc"><div class="mc-lbl">Open Cost Basis</div><div class="mc-val">${fmtD(cost)}</div><div class="mc-sub">Weighted average by type</div></div>
+  <div class="mc"><div class="mc-lbl">Unrealized Profit</div><div class="mc-val" style="color:${unreal>=0?"var(--gn)":"var(--rd)"}">${fmtD(unreal)}</div><div class="mc-sub">Potential spread on inventory</div></div>
+</div>
+<div style="display:grid;grid-template-columns:1.5fr .9fr;gap:16px">
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">Inventory by Metal Type</div><span style="font-size:12px;color:var(--tx2)">${rows.length} type${rows.length!==1?"s":""}</span></div>
+    <div class="tw"><table><thead><tr><th>Metal Type</th><th style="text-align:right">Bought</th><th style="text-align:right">Sold</th><th style="text-align:right">On Hand</th><th style="text-align:right">Avg Buy</th><th style="text-align:right">Est. Value</th><th style="text-align:right">Spread</th></tr></thead><tbody>
+      ${rows.length?rows.map(r=>`<tr><td>${typeBadge(r.type)}</td><td style="text-align:right">${fmtLb(r.bought)}</td><td style="text-align:right">${fmtLb(r.sold)}</td><td style="text-align:right;font-weight:700;color:${r.onHand>=0?"var(--bl)":"var(--rd)"}">${fmtLb(r.onHand)}</td><td style="text-align:right">$${r.avgBuy.toFixed(3)}</td><td style="text-align:right;color:var(--gn);font-weight:700">${fmtD(r.value)}</td><td style="text-align:right;color:${r.unrealized>=0?"var(--gn)":"var(--rd)"};font-weight:700">${fmtD(r.unrealized)}</td></tr>`).join(""):`<tr><td colspan="7"><div class="empty"><div class="empty-t">No inventory yet</div><div class="empty-s">Log a purchase to start tracking stock.</div></div></td></tr>`}
+    </tbody></table></div>
+  </div>
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">Best Supply Relationships</div></div>
+    <div class="card-body" style="padding:14px 20px">
+      ${topSources.length?topSources.map(([name,v])=>`<div class="rpt-bar-row"><div class="rpt-bar-label" title="${esc(name)}">${esc(name)}</div><div style="flex:1;text-align:right"><strong>${fmtLb(v.lbs)}</strong><div style="font-size:11px;color:var(--tx2)">${v.loads} load${v.loads!==1?"s":""} • ${fmtD(v.paid)} paid</div></div></div>`).join(""):`<div class="empty" style="padding:24px"><div class="empty-t">No source history yet</div></div>`}
+    </div>
+  </div>
+</div>
+<div style="font-size:11px;color:var(--tx3);margin-top:8px">Inventory is calculated from total pounds purchased minus total pounds sold. For tighter controls later, this can be upgraded to lot-level FIFO tracking.</div>`;
+}
+
+// ── REPORTS ───────────────────────────────────────────────────
+function renderReports(){
+  const now=new Date();
+  const periods={
+    week:{label:"This Week",fn:d=>{const t=new Date();t.setDate(t.getDate()-7);return new Date(d)>=t;}},
+    month:{label:"This Month",fn:d=>d.startsWith(now.toISOString().slice(0,7))},
+    quarter:{label:"This Quarter",fn:d=>{const m=parseInt(d.slice(5,7))-1,y=parseInt(d.slice(0,4)),q=Math.floor(m/3);const qm=q*3;return y===now.getFullYear()&&m>=qm&&m<qm+3;}},
+    year:{label:"This Year",fn:d=>d.startsWith(now.getFullYear().toString())},
+    all:{label:"All Time",fn:()=>true},
+  };
+  const p=periods[S.rptPeriod]||periods.all;
+  const purch=S.purchases.filter(x=>p.fn(x.date));
+  const sales=S.sales.filter(x=>p.fn(x.date));
+  const tc=purch.reduce((s,x)=>s+x.paid,0);
+  const tr=sales.reduce((s,x)=>s+x.total,0);
+  const profit=tr-tc;
+  const lb=purch.reduce((s,x)=>s+x.lbs,0);
+  const ls=sales.reduce((s,x)=>s+x.lbs,0);
+  const mg=tr>0?(profit/tr)*100:0;
+  const roi=tc>0?(profit/tc)*100:0;
+
+  // Purchases by source
+  const srcMap={};
+  purch.forEach(x=>{if(!srcMap[x.src])srcMap[x.src]={lbs:0,paid:0,count:0};srcMap[x.src].lbs+=x.lbs;srcMap[x.src].paid+=x.paid;srcMap[x.src].count+=x.qty||1;});
+  const srcRows=Object.entries(srcMap).sort((a,b)=>b[1].paid-a[1].paid);
+  const maxSrcPaid=srcRows[0]?srcRows[0][1].paid:1;
+
+  // Sales by buyer
+  const buyMap={};
+  sales.forEach(x=>{if(!buyMap[x.buyer])buyMap[x.buyer]={lbs:0,total:0,txns:0};buyMap[x.buyer].lbs+=x.lbs;buyMap[x.buyer].total+=x.total;buyMap[x.buyer].txns++;});
+  const buyRows=Object.entries(buyMap).sort((a,b)=>b[1].total-a[1].total);
+  const maxBuy=buyRows[0]?buyRows[0][1].total:1;
+
+  // Metal type breakdown
+  const typeMap={};
+  purch.forEach(x=>{if(!typeMap[x.type])typeMap[x.type]={cost:0,lbsIn:0};typeMap[x.type].cost+=x.paid;typeMap[x.type].lbsIn+=x.lbs;});
+  sales.forEach(x=>{if(!typeMap[x.type])typeMap[x.type]={cost:0,lbsIn:0};if(!typeMap[x.type].rev)typeMap[x.type].rev=0;if(!typeMap[x.type].lbsOut)typeMap[x.type].lbsOut=0;typeMap[x.type].rev=(typeMap[x.type].rev||0)+x.total;typeMap[x.type].lbsOut=(typeMap[x.type].lbsOut||0)+x.lbs;});
+  const typeRows=Object.entries(typeMap).sort((a,b)=>(b[1].rev||0)-(a[1].rev||0));
+
+  // Monthly trend (last 6 months)
+  const monthMap={};
+  const allItems=[...S.purchases.map(x=>({date:x.date,type:"cost",val:x.paid})),...S.sales.map(x=>({date:x.date,type:"rev",val:x.total}))];
+  allItems.forEach(x=>{const mo=x.date.slice(0,7);if(!monthMap[mo])monthMap[mo]={cost:0,rev:0};monthMap[mo][x.type]+=x.val;});
+  const monthRows=Object.entries(monthMap).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6);
+  const maxMonth=Math.max(...monthRows.map(([,v])=>Math.max(v.cost,v.rev)),1);
+
+  const pBar=(val,max,color)=>`<div class="rpt-bar-track"><div class="rpt-bar-fill" style="width:${Math.max((val/max)*100,2).toFixed(1)}%;background:${color}"></div></div>`;
+  const moLabel=m=>{const[y,mo]=m.split("-");return new Date(y,mo-1).toLocaleString("default",{month:"short",year:"2-digit"});};
+
+  return`
+<div class="rpt-period-bar">
+  ${Object.entries(periods).map(([k,v])=>`<button class="rpt-period-btn ${S.rptPeriod===k?"on":""}" onclick="S.rptPeriod='${k}';render()">${v.label}</button>`).join("")}
+</div>
+
+<div class="mgrid" style="margin-bottom:24px">
+  <div class="mc"><div class="mc-lbl">Revenue</div><div class="mc-val" style="color:var(--gn)">${fmtD(tr)}</div><div class="mc-sub">${ls.toLocaleString()} lbs sold</div></div>
+  <div class="mc"><div class="mc-lbl">Cost</div><div class="mc-val">${fmtD(tc)}</div><div class="mc-sub">${lb.toLocaleString()} lbs bought</div></div>
+  <div class="mc"><div class="mc-lbl">Gross Profit</div><div class="mc-val" style="color:${profit>=0?"var(--gn)":"var(--rd)"}">${fmtD(profit)}</div><div class="mc-sub">${mg.toFixed(1)}% margin</div></div>
+  <div class="mc"><div class="mc-lbl">ROI on Cost</div><div class="mc-val" style="color:${roi>=0?"var(--gn)":"var(--rd)"}">${roi.toFixed(1)}%</div><div class="mc-sub">${purch.length} purchase${purch.length!==1?"s":""}, ${sales.length} sale${sales.length!==1?"s":""}</div></div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+
+  <div class="card">
+    <div class="card-hdr"><div class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;vertical-align:-2px"><path d="M4 4h1.5L8 15h9l2.5-8H7M8 15l-1.5-1.5M10 19a1 1 0 1 0 2 0 1 1 0 0 0-2 0m7 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/></svg>Spending by Source</div><span style="font-size:12px;color:var(--tx2)">${srcRows.length} source${srcRows.length!==1?"s":""}</span></div>
+    <div class="card-body" style="padding:14px 20px">
+      ${srcRows.length?srcRows.map(([name,v])=>`
+      <div class="rpt-bar-row">
+        <div class="rpt-bar-label" title="${esc(name)}">${esc(name)}</div>
+        ${pBar(v.paid,maxSrcPaid,"var(--ac)")}
+        <div class="rpt-bar-val">${fmtD(v.paid)}</div>
+        <div class="rpt-bar-sub">${fmtLb(v.lbs)}</div>
+      </div>`).join(""):`<div class="empty" style="padding:24px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 4h1.5L8 15h9l2.5-8H7M8 15l-1.5-1.5M10 19a1 1 0 1 0 2 0 1 1 0 0 0-2 0m7 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/></svg><div class="empty-t">No purchases in this period</div></div>`}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr"><div class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;vertical-align:-2px"><path d="M3 17l6-6 4 4 8-8M14 7h6v6"/></svg>Revenue by Buyer</div><span style="font-size:12px;color:var(--tx2)">${buyRows.length} buyer${buyRows.length!==1?"s":""}</span></div>
+    <div class="card-body" style="padding:14px 20px">
+      ${buyRows.length?buyRows.map(([name,v])=>`
+      <div class="rpt-bar-row">
+        <div class="rpt-bar-label" title="${esc(name)}">${esc(name)}</div>
+        ${pBar(v.total,maxBuy,"var(--gn)")}
+        <div class="rpt-bar-val" style="color:var(--gn)">${fmtD(v.total)}</div>
+        <div class="rpt-bar-sub">${fmtLb(v.lbs)}</div>
+      </div>`).join(""):`<div class="empty" style="padding:24px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M3 17l6-6 4 4 8-8M14 7h6v6"/></svg><div class="empty-t">No sales in this period</div></div>`}
+    </div>
+  </div>
+
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+  <div class="card">
+    <div class="card-hdr"><div class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;vertical-align:-2px"><path d="M3 20h18M5 20V12m4 8V8m4 12V5m4 15v-4"/></svg>P&amp;L by Metal Type</div></div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Metal Type</th><th style="text-align:right">Cost In</th><th style="text-align:right">Revenue</th><th style="text-align:right">Profit</th><th style="text-align:right">Margin</th></tr></thead>
+        <tbody>
+          ${typeRows.length?typeRows.map(([type,v])=>{
+            const rev=v.rev||0,cost=v.cost||0,pr=rev-cost,mg2=rev>0?((pr/rev)*100):null;
+            return`<tr><td>${typeBadge(type)}</td><td style="text-align:right;font-size:12px">${fmtD(cost)}</td><td style="text-align:right;font-size:12px;color:var(--gn)">${fmtD(rev)}</td><td style="text-align:right;font-weight:700;color:${pr>=0?"var(--gn)":"var(--rd)"}">${fmtD(pr)}</td><td style="text-align:right;font-size:12px">${mg2!==null?mg2.toFixed(1)+"%":"—"}</td></tr>`;}).join("")
+            :`<tr><td colspan="5"><div class="empty" style="padding:24px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M3 20h18M5 20V12m4 8V8m4 12V5m4 15v-4"/></svg><div class="empty-t">No data in this period</div></div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr"><div class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;vertical-align:-2px"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7zm0 4h16M8 3v4m8-4v4"/></svg>Monthly Trend</div><span style="font-size:12px;color:var(--tx2)">Last 6 months</span></div>
+    <div class="card-body" style="padding:14px 20px">
+      ${monthRows.length?monthRows.reverse().map(([mo,v])=>`
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+          <strong>${moLabel(mo)}</strong>
+          <span style="color:${(v.rev-v.cost)>=0?"var(--gn)":"var(--rd)"}">Profit: ${fmtD(v.rev-v.cost)}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)">
+            <span style="width:48px">Revenue</span>
+            <div style="flex:1;height:6px;background:#f0ede6;border-radius:3px;overflow:hidden"><div style="height:100%;border-radius:3px;background:var(--gn);width:${Math.max((v.rev/maxMonth)*100,v.rev>0?2:0).toFixed(1)}%"></div></div>
+            <span style="width:64px;text-align:right;font-weight:600;color:var(--gn)">${fmtD(v.rev)}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)">
+            <span style="width:48px">Cost</span>
+            <div style="flex:1;height:6px;background:#f0ede6;border-radius:3px;overflow:hidden"><div style="height:100%;border-radius:3px;background:var(--ac);width:${Math.max((v.cost/maxMonth)*100,v.cost>0?2:0).toFixed(1)}%"></div></div>
+            <span style="width:64px;text-align:right;font-weight:600">${fmtD(v.cost)}</span>
+          </div>
+        </div>
+      </div>`).join(""):`<div class="empty" style="padding:24px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7zm0 4h16M8 3v4m8-4v4"/></svg><div class="empty-t">No historical data yet</div></div>`}
+    </div>
+  </div>
+
+</div>`;
+}
+
+// ── RENDER ────────────────────────────────────────────────────
+function render(){
+  const m={dashboard:renderDashboard,prices:renderPrices,suppliers:renderSuppliers,purchases:renderPurchases,sales:renderSales,sources:renderSources,buyers:renderBuyers,inventory:renderInventory,reports:renderReports};
+  $("content").innerHTML=m[S.tab]?m[S.tab]():"";
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+loadLS();
+$("ks").textContent=S.apiKey?"API Key ✓":"Set API Key";
+go("dashboard");
+if(S.apiKey&&pricesStale())setTimeout(fetchPrices,1800);
+</script>
+</body>
+</html>
